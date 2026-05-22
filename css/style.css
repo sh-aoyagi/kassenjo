@@ -229,11 +229,38 @@ body.article-body {
 
 .article-headline {
   font-family: 'Noto Serif JP', serif;
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-size: clamp(1.8rem, 5vw, 3rem);
   font-weight: 900;
-  line-height: 1.35;
-  margin-bottom: 1rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.2rem;
 }
+
+/* タイポ緩急：セクション見出しは特大 */
+.section-heading {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  margin: 3rem 0 1.2rem;
+}
+
+/* サブ見出しは細め */
+.sub-heading {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin: 2rem 0 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.sub-heading::before { content: '▼'; font-size: 0.6rem; color: var(--crimson); }
 
 .article-deck {
   font-size: 0.95rem;
@@ -266,30 +293,7 @@ body.article-body {
   background: var(--black3);
 }
 
-/* セクション見出し */
-.section-heading {
-  font-family: 'Noto Serif JP', serif;
-  font-size: 1rem;
-  color: var(--gold);
-  letter-spacing: 0.08em;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--border);
-  margin: 2.5rem 0 1rem;
-}
-
 .article-wrap p { margin-bottom: 1rem; line-height: 1.9; }
-
-/* サブ見出し */
-.sub-heading {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--gold);
-  margin: 1.5rem 0 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.sub-heading::before { content: '▼'; font-size: 0.65rem; color: var(--crimson); }
 
 /* テーブル */
 .data-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.87rem; }
@@ -343,7 +347,7 @@ body.article-body {
   margin: 2rem 0;
   text-align: center;
 }
-.cta-block p { margin-bottom: 1rem; font-size: 0.88rem; color: var(--gray); }
+.cta-block p { margin-bottom: 1rem; font-size: 0.92rem; color: var(--white); }
 
 .btn {
   display: inline-block;
@@ -381,21 +385,24 @@ footer {
 footer a { color: var(--gold); }
 
 /* ==============================
-   パラパラアニメーション
+   アニメーション共通
 ============================== */
-[data-animate] { opacity: 0; }
-[data-animate].animated { opacity: 1; }
 
-.char {
-  display: inline;
-  opacity: 0;
-  animation: charReveal 0.04s forwards;
-  animation-delay: calc(var(--i) * 0.035s);
-}
+/* JS側でopacityを直接制御するため、初期値だけ設定 */
+[data-anim] { }
 
-@keyframes charReveal {
-  0%   { opacity: 0; transform: translateY(4px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* ワイプ対象要素は最初非表示（JSが制御） */
+h1.article-headline,
+h2.section-heading,
+.sub-heading,
+.article-hero-img,
+.koma .koma-img { opacity: 0; }
+
+/* ワイプバンド用ラッパー（JSが生成） */
+.wipe-band-wrap {
+  display: block;
+  position: relative;
+  overflow: hidden;
 }
 
 /* ==============================
