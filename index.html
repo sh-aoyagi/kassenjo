@@ -71,9 +71,10 @@
     opacity: 1;
     z-index: 2;
     pointer-events: auto;
+    transition: opacity 0.9s ease;
   }
   .slide.is-next {
-    opacity: 1;
+    opacity: 0;          /* 黒背景が透けないよう完全に隠す */
     z-index: 1;
     pointer-events: none;
   }
@@ -138,6 +139,8 @@
     pointer-events: none;
     white-space: nowrap;
     z-index: 10;
+    background: rgba(0,0,0,0.52);
+    padding: 2.2rem 3rem;
   }
 
   .slide-text .work-castle {
@@ -494,8 +497,9 @@ function updateIndicator(idx) {
   document.querySelectorAll('.ind-line').forEach((l, i) => l.classList.toggle('active', i === idx));
 }
 
-// ── 初期化
+// ── 初期化（1枚目はイントロの裏で即表示、transitionなし）
 slideEls[0].classList.add('is-current');
+slideEls[0].style.transition = 'none';
 slideEls[1 % slides.length].classList.add('is-next');
 
 // ── トランジション
@@ -507,11 +511,11 @@ function goTo(next) {
   const outEl = slideEls[current];
   const inEl  = slideEls[next];
 
-  inEl.classList.remove('is-next');
-  inEl.classList.add('is-next');
+  // フェーズ1: splitアニメ開始
   outEl.classList.add('is-splitting');
 
-  const dur = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--transition-duration')) + 60;
+  // フェーズ2: splitが終わったら真っ黒（is-nextはopacity:0なので自動的に黒）
+  const splitDur = 960;
   setTimeout(() => {
     outEl.classList.remove('is-current', 'is-splitting');
     outEl.querySelectorAll('.panel-left, .panel-right').forEach(p => {
@@ -519,18 +523,25 @@ function goTo(next) {
       p.offsetHeight;
       p.style.animation = '';
     });
-    inEl.classList.remove('is-next');
-    inEl.classList.add('is-current');
 
-    const nextNext = (next + 1) % slides.length;
-    slideEls.forEach((el, i) => { if (i !== next) el.classList.remove('is-next'); });
-    slideEls[nextNext].classList.add('is-next');
+    // フェーズ3: 1秒真っ黒 → ふわっとフェードイン
+    setTimeout(() => {
+      inEl.classList.remove('is-next');
+      inEl.classList.add('is-current'); // transition: opacity 0.9s が発火
 
-    current = next;
-    updateIndicator(current);
-    isAnimating = false;
-    scheduleAuto();
-  }, dur);
+      const nextNext = (next + 1) % slides.length;
+      slideEls.forEach((el, i) => { if (i !== next) el.classList.remove('is-next'); });
+      slideEls[nextNext].classList.add('is-next');
+
+      current = next;
+      updateIndicator(current);
+
+      setTimeout(() => {
+        isAnimating = false;
+        scheduleAuto();
+      }, 950); // フェードイン完了を待ってから次を受け付ける
+    }, 1000); // 1秒の黒
+  }, splitDur);
 }
 
 function nextSlide() { goTo((current + 1) % slides.length); }
