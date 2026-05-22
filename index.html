@@ -84,6 +84,12 @@
     inset: 0;
     background-size: cover;
     background-position: center;
+    transition: opacity 0s;
+  }
+
+  /* splitが始まった瞬間にbgを消す → パネルの裏が黒になる */
+  .slide.is-splitting .slide-bg {
+    opacity: 0;
   }
 
   /* 暗めオーバーレイ（テキスト可読性） */
@@ -131,16 +137,24 @@
   /* ─── テキストオーバーレイ ─── */
   .slide-text {
     position: absolute;
-    left: 50%;
+    left: 0; right: 0;          /* 全幅に広げる */
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
     text-align: center;
     color: var(--white);
     pointer-events: none;
     white-space: nowrap;
     z-index: 10;
-    background: rgba(0,0,0,0.52);
-    padding: 2.2rem 3rem;
+    /* ボックスではなく左右フェードの帯 */
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0,0,0,0.78) 15%,
+      rgba(0,0,0,0.82) 50%,
+      rgba(0,0,0,0.78) 85%,
+      transparent 100%
+    );
+    padding: 2.4rem 0;
   }
 
   .slide-text .work-castle {
@@ -339,7 +353,7 @@
   /* ─── スマホ ─── */
   @media (max-width: 768px) {
     nav { padding: 20px; }
-    .slide-text { white-space: normal; width: 88%; text-align: center; }
+    .slide-text { white-space: normal; }
     #panel { padding: 3rem 1.5rem; }
     .panel-list a { font-size: 1.1rem; }
     #indicator { right: 12px; }
