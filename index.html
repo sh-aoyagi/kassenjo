@@ -8,7 +8,6 @@
   <meta property="og:title" content="風雲！決算城 ｜ 敵は経済にあり！">
   <meta property="og:description" content="戦国武将が現代企業の決算書を斬る！金融教育エンタメメディア">
   <meta property="og:type" content="website">
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -21,48 +20,110 @@
 <body>
 
 <header>
-  <div>
+  <div class="site-logo">
     <div class="site-title">風雲！決算城</div>
     <div class="site-tagline">敵は経済にあり！</div>
   </div>
 </header>
 
-<main>
-  <h2 class="section-title">最新記事</h2>
+<!-- ヒーローセクション -->
+<div class="hero">
 
-  <div class="article-grid">
-
-    <!-- 001 Alphabet -->
-    <a href="articles/001_google_alphabet.html" class="article-card" style="display:block;">
+  <!-- メイン（001 Alphabet） -->
+  <a href="articles/001_google_alphabet.html" class="hero-main">
+    <div class="card-img">
+      <img src="images/001_hero.jpg" alt="Alphabet×織田信長" onerror="this.style.display='none'">
+      <div class="img-placeholder">COMING SOON</div>
+    </div>
+    <div class="card-body">
       <span class="card-badge">安土城</span>
-      <div class="card-title">Alphabet（Google）×織田信長</div>
-      <div class="card-meta">売上3,503億ドル ｜ 営業利益率27%</div>
+      <div class="card-title">売上3,500億ドルの安土城<br>検索の天下人、AIで再び動く</div>
+      <div class="card-meta">Alphabet（Google）× 織田信長</div>
       <div class="fire-score">FIREスコア：88点 ★激走候補</div>
+    </div>
+  </a>
+
+  <!-- サブ（002・003） -->
+  <div class="hero-sub">
+
+    <a href="articles/002_apple_japan.html" class="sub-card">
+      <div class="card-img">
+        <img src="images/002_hero.jpg" alt="Apple×織田信長" onerror="this.style.display='none'">
+        <div class="img-placeholder">COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <span class="card-badge">安土城</span>
+        <div class="card-title">FCF1,120億ドルの安土城<br>エコシステムという見えない城壁</div>
+        <div class="card-meta">Apple × 織田信長</div>
+        <div class="fire-score">88点</div>
+      </div>
     </a>
 
-    <!-- 002 Apple -->
-    <a href="articles/002_apple_japan.html" class="article-card" style="display:block;">
-      <span class="card-badge">安土城</span>
-      <div class="card-title">Apple × 織田信長</div>
-      <div class="card-meta">売上3,911億ドル ｜ FCF1,120億ドル</div>
-      <div class="fire-score">FIREスコア：88点 ★激走候補</div>
+    <a href="articles/003_microsoft_japan.html" class="sub-card">
+      <div class="card-img">
+        <img src="images/003_hero.jpg" alt="Microsoft×織田信長" onerror="this.style.display='none'">
+        <div class="img-placeholder">COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <span class="card-badge">安土城</span>
+        <div class="card-title">営業利益率43%の安土城<br>OS・Office・Azure、三位一体の覇権</div>
+        <div class="card-meta">Microsoft × 織田信長</div>
+        <div class="fire-score">93点</div>
+      </div>
     </a>
-
-    <!-- 003 Microsoft -->
-    <a href="articles/003_microsoft_japan.html" class="article-card" style="display:block;">
-      <span class="card-badge">安土城</span>
-      <div class="card-title">Microsoft × 織田信長</div>
-      <div class="card-meta">売上2,450億ドル ｜ 営業利益率43%</div>
-      <div class="fire-score">FIREスコア：93点 ★激走候補</div>
-    </a>
-
-    <!-- 以降は準備中 -->
 
   </div>
-</main>
+</div>
+
+<!-- 記事グリッド -->
+<div class="grid-section">
+  <span class="grid-section-title">最新記事</span>
+  <div class="article-grid">
+
+    <a href="articles/001_google_alphabet.html" class="grid-card">
+      <div class="card-img">
+        <img src="images/001_hero.jpg" alt="" onerror="this.style.display='none'">
+        <div class="img-placeholder">COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <span class="card-badge">安土城</span>
+        <div class="card-title">Alphabet（Google）× 織田信長</div>
+        <div class="card-meta">売上3,503億ドル ｜ 営業利益率27%</div>
+        <div class="fire-score">88点 ★激走候補</div>
+      </div>
+    </a>
+
+    <a href="articles/002_apple_japan.html" class="grid-card">
+      <div class="card-img">
+        <img src="images/002_hero.jpg" alt="" onerror="this.style.display='none'">
+        <div class="img-placeholder">COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <span class="card-badge">安土城</span>
+        <div class="card-title">Apple × 織田信長</div>
+        <div class="card-meta">売上3,911億ドル ｜ FCF1,120億ドル</div>
+        <div class="fire-score">88点 ★激走候補</div>
+      </div>
+    </a>
+
+    <a href="articles/003_microsoft_japan.html" class="grid-card">
+      <div class="card-img">
+        <img src="images/003_hero.jpg" alt="" onerror="this.style.display='none'">
+        <div class="img-placeholder">COMING SOON</div>
+      </div>
+      <div class="card-body">
+        <span class="card-badge">安土城</span>
+        <div class="card-title">Microsoft × 織田信長</div>
+        <div class="card-meta">売上2,450億ドル ｜ 営業利益率43%</div>
+        <div class="fire-score">93点 ★激走候補</div>
+      </div>
+    </a>
+
+  </div>
+</div>
 
 <footer>
-  &copy; 2026 風雲！決算城 ｜ 本サイトの情報は投資を推奨するものではありません
+  <a href="index.html">風雲！決算城</a> ｜ &copy; 2026 本サイトの情報は投資を推奨するものではありません
 </footer>
 
 </body>
