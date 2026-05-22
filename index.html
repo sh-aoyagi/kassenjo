@@ -1,520 +1,575 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>風雲！決算城 ｜ 敵は経済にあり！</title>
-  <meta name="description" content="戦国武将が現代企業の決算書を斬る。金融教育エンタメメディア。">
-  <meta property="og:title" content="風雲！決算城">
-  <meta property="og:description" content="戦国武将が現代企業の決算書を斬る。">
-  <meta property="og:type" content="website">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VSZZMHJD2M"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VSZZMHJD2M');</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>風雲！決算城 ｜ 敵は経済にあり！</title>
+<meta name="description" content="戦国武将が現代企業の決算書を斬る。金融教育エンタメメディア。">
+<meta property="og:title" content="風雲！決算城">
+<meta property="og:type" content="website">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VSZZMHJD2M"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VSZZMHJD2M');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
-      --black:   #080808;
-      --white:   #f0ebe0;
-      --gold:    #c9a84c;
-      --crimson: #c0392b;
-      --gray:    #888;
-    }
+  :root {
+    --white:   #f0ebe0;
+    --gold:    #c9a84c;
+    --crimson: #c0392b;
+    --transition-duration: 900ms;
+    --transition-ease: cubic-bezier(0.76, 0, 0.24, 1);
+  }
 
-    html, body {
-      height: 100%;
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 300;
-      overflow: hidden;
-    }
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Noto Sans JP', 'Helvetica Neue', sans-serif;
+    font-weight: 300;
+    cursor: default;
+  }
 
-    /* ==============================
-       イントロ
-    ============================== */
-    #intro {
-      position: fixed;
-      inset: 0;
-      background: var(--black);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      transition: opacity 0.9s ease;
-    }
+  /* ─── イントロ ─── */
+  #intro {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.9s ease;
+    pointer-events: none;
+  }
+  #intro.hidden { opacity: 0; }
+  #intro-logo {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+    letter-spacing: 0.3em;
+    color: var(--white);
+  }
 
-    #intro.hidden { opacity: 0; }
+  /* ─── Stage ─── */
+  #stage {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+  }
 
-    .intro-logo {
-      font-family: 'Noto Serif JP', serif;
-      font-weight: 300;
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      letter-spacing: 0.3em;
-      color: var(--white);
-    }
+  /* ─── Slides ─── */
+  .slide {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .slide.is-current {
+    opacity: 1;
+    z-index: 2;
+    pointer-events: auto;
+  }
+  .slide.is-next {
+    opacity: 1;
+    z-index: 1;
+    pointer-events: none;
+  }
 
-    /* ==============================
-       ナビゲーション（Blue Paris式）
-    ============================== */
-    #nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 1.8rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      mix-blend-mode: normal;
-    }
+  .slide-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
 
-    .nav-logo {
-      font-family: 'Noto Serif JP', serif;
-      font-weight: 300;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      color: var(--white);
-      text-decoration: none;
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
+  /* 暗めオーバーレイ（テキスト可読性） */
+  .slide-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.38);
+  }
 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
+  /* Split panels */
+  .panel-left, .panel-right {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 50%;
+    overflow: hidden;
+    will-change: transform;
+  }
+  .panel-left  { left: 0; }
+  .panel-right { right: 0; }
 
-    .nav-links a {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      color: var(--white);
-      text-decoration: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-      cursor: pointer;
-    }
+  .panel-left  .panel-inner {
+    position: absolute; inset: 0;
+    width: 200%; left: 0;
+    background-size: cover;
+    background-position: left center;
+  }
+  .panel-right .panel-inner {
+    position: absolute; inset: 0;
+    width: 200%; right: 0; left: -100%;
+    background-size: cover;
+    background-position: right center;
+  }
 
-    .nav-links a:hover { opacity: 0.5 !important; }
+  .slide.is-splitting .panel-left {
+    animation: splitLeft var(--transition-duration) var(--transition-ease) forwards;
+  }
+  .slide.is-splitting .panel-right {
+    animation: splitRight var(--transition-duration) var(--transition-ease) forwards;
+  }
 
-    /* ==============================
-       記事一覧パネル（ドロワー）
-    ============================== */
-    #panel {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: var(--black);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 4rem 3rem;
-      transform: translateX(-100%);
-      transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
-    }
+  @keyframes splitLeft  { to { transform: translateX(-100%); } }
+  @keyframes splitRight { to { transform: translateX(100%);  } }
 
-    #panel.open { transform: translateX(0); }
+  /* ─── テキストオーバーレイ ─── */
+  .slide-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--white);
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+  }
 
-    .panel-close {
-      position: absolute;
-      top: 1.8rem;
-      right: 2.5rem;
-      background: none;
-      border: none;
-      color: var(--white);
-      font-size: 1.2rem;
-      cursor: pointer;
-      letter-spacing: 0.1em;
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 300;
-    }
+  .slide-text .work-castle {
+    display: block;
+    font-size: clamp(10px, 1vw, 12px);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    font-weight: 300;
+    opacity: 0.9;
+  }
+  .slide-text .work-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(22px, 3.2vw, 48px);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+  }
+  .slide-text .work-director {
+    font-size: clamp(14px, 1.8vw, 26px);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    opacity: 0.72;
+    margin-top: 6px;
+  }
+  .slide-text .work-score {
+    display: block;
+    font-size: clamp(10px, 0.9vw, 12px);
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-top: 16px;
+    opacity: 0.8;
+  }
+  .slide-text .view-film {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: clamp(10px, 1vw, 13px);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0;
+    color: rgba(240,235,224,0.75);
+    transition: opacity 0.3s, color 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(240,235,224,0.3);
+    padding-bottom: 2px;
+    pointer-events: auto;
+  }
+  .view-film:hover { color: var(--gold); border-bottom-color: var(--gold); }
+  .slide.is-current .slide-text .view-film { opacity: 1; }
+  .slide.is-current .slide-text { animation: textFadeIn 0.6s 0.4s ease both; }
+  .slide.is-splitting .slide-text { opacity: 0; transition: opacity 0.15s; }
 
-    .panel-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--gray);
-      margin-bottom: 2.5rem;
-      text-transform: uppercase;
-    }
+  @keyframes textFadeIn {
+    from { opacity: 0; transform: translate(-50%, calc(-50% + 14px)); }
+    to   { opacity: 1; transform: translate(-50%, -50%); }
+  }
 
-    .panel-list { list-style: none; }
+  /* ─── Nav ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 28px 36px;
+  }
+  nav .logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  nav .nav-links {
+    display: flex;
+    gap: 28px;
+  }
+  nav .nav-links a, nav .nav-links span {
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+    cursor: pointer;
+  }
+  nav .nav-links a:hover, nav .nav-links span:hover { opacity: 0.4; }
 
-    .panel-list li {
-      border-top: 1px solid #1e1e1e;
-      padding: 1.2rem 0;
-    }
+  /* ─── 記事一覧パネル ─── */
+  #panel {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 3.5rem;
+    transform: translateX(-100%);
+    transition: transform 0.65s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  #panel.open { transform: translateX(0); }
 
-    .panel-list li:last-child { border-bottom: 1px solid #1e1e1e; }
+  .panel-close-btn {
+    position: absolute;
+    top: 28px; right: 36px;
+    background: none; border: none;
+    color: var(--white);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .panel-close-btn:hover { opacity: 1; }
 
-    .panel-list a {
-      display: flex;
-      align-items: baseline;
-      gap: 1.5rem;
-      color: var(--white);
-      text-decoration: none;
-      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
-      font-family: 'Noto Serif JP', serif;
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-    }
+  .panel-label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    color: rgba(240,235,224,0.4);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
 
-    .panel-list a:hover { color: var(--gold); }
+  .panel-list { list-style: none; }
+  .panel-list li {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 1.2rem 0;
+  }
+  .panel-list li:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .panel-list a {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .panel-list a:hover { color: var(--gold); }
+  .p-num { font-size: 11px; color: rgba(240,235,224,0.35); letter-spacing: 0.1em; font-family: 'Noto Sans JP', sans-serif; }
+  .p-score { margin-left: auto; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; font-family: 'Noto Sans JP', sans-serif; }
 
-    .panel-list .item-num {
-      font-size: 0.65rem;
-      color: var(--gray);
-      letter-spacing: 0.1em;
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 300;
-    }
+  /* ─── 右インジケーター（ライン） ─── */
+  #indicator {
+    position: fixed;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 100;
+  }
+  .ind-line {
+    display: block;
+    width: 20px; height: 2px;
+    background: rgba(240,235,224,0.3);
+    border-radius: 1px;
+    transition: background 0.4s, width 0.4s;
+    cursor: pointer;
+  }
+  .ind-line.active {
+    background: var(--gold);
+    width: 30px;
+  }
 
-    .panel-list .item-score {
-      margin-left: auto;
-      font-size: 0.7rem;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-    }
+  /* ─── 下部ラベル ─── */
+  #bottom-label {
+    position: fixed;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    padding-bottom: 22px;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(240,235,224,0.4);
+    pointer-events: none;
+    white-space: nowrap;
+  }
 
-    /* ==============================
-       スライドコンテナ（スクロールスナップ）
-    ============================== */
-    #slides {
-      height: 100vh;
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      scrollbar-width: none;
-    }
-
-    #slides::-webkit-scrollbar { display: none; }
-
-    /* ==============================
-       各スライド
-    ============================== */
-    .slide {
-      height: 100vh;
-      scroll-snap-align: start;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .slide-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      transform: scale(1.05);
-      transition: transform 8s ease;
-    }
-
-    .slide.active .slide-bg { transform: scale(1); }
-
-    .slide-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,0.88) 0%,
-        rgba(0,0,0,0.35) 45%,
-        rgba(0,0,0,0.15) 100%
-      );
-    }
-
-    /* テキストエリア（Blue Paris式：左下） */
-    .slide-body {
-      position: absolute;
-      bottom: 3rem;
-      left: 3rem;
-      right: 3rem;
-      z-index: 2;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-    }
-
-    .slide-body-left { max-width: 60%; }
-
-    .slide-castle {
-      display: block;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--gold);
-      margin-bottom: 0.8rem;
-      font-weight: 300;
-      text-transform: uppercase;
-    }
-
-    .slide-title {
-      font-family: 'Noto Serif JP', serif;
-      font-weight: 300;
-      font-size: clamp(1.4rem, 3.5vw, 2.8rem);
-      line-height: 1.3;
-      letter-spacing: 0.02em;
-      color: var(--white);
-      margin-bottom: 0.6rem;
-    }
-
-    .slide-meta {
-      font-size: 0.72rem;
-      color: rgba(240,235,224,0.5);
-      letter-spacing: 0.08em;
-      font-weight: 300;
-    }
-
-    /* 右下：「記事を読む →」（Blue Paris の "view film →" */
-    .slide-link {
-      font-size: 0.72rem;
-      letter-spacing: 0.15em;
-      color: var(--white);
-      text-decoration: none;
-      white-space: nowrap;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-      padding-bottom: 3px;
-      border-bottom: 1px solid rgba(240,235,224,0.3);
-    }
-
-    .slide-link:hover { opacity: 1; border-bottom-color: var(--gold); color: var(--gold); }
-
-    /* スライド番号（右上） */
-    .slide-num {
-      position: absolute;
-      top: 2rem;
-      right: 2.5rem;
-      font-size: 0.62rem;
-      letter-spacing: 0.15em;
-      color: rgba(240,235,224,0.4);
-      z-index: 2;
-    }
-
-    /* FIREスコア（右下の小さい数字） */
-    .slide-score {
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      color: var(--gold);
-      opacity: 0.8;
-      white-space: nowrap;
-      padding-bottom: 4px;
-    }
-
-    /* ==============================
-       スクロールインジケーター（右端縦線）
-    ============================== */
-    #scroll-indicator {
-      position: fixed;
-      right: 1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 50;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-
-    .s-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: rgba(240,235,224,0.25);
-      transition: background 0.3s, transform 0.3s;
-    }
-
-    .s-dot.active {
-      background: var(--gold);
-      transform: scale(1.5);
-    }
-
-    /* ==============================
-       スマホ対応
-    ============================== */
-    @media (max-width: 768px) {
-      #nav { padding: 1.2rem 1.5rem; }
-      .slide-body { bottom: 2rem; left: 1.5rem; right: 1.5rem; }
-      .slide-body-left { max-width: 80%; }
-      .slide-title { font-size: clamp(1.2rem, 5vw, 1.8rem); }
-      #panel { padding: 3rem 1.5rem; }
-      .panel-list a { font-size: 1.2rem; }
-      #scroll-indicator { right: 0.8rem; }
-    }
-  </style>
+  /* ─── スマホ ─── */
+  @media (max-width: 768px) {
+    nav { padding: 20px; }
+    .slide-text { white-space: normal; width: 88%; text-align: center; }
+    #panel { padding: 3rem 1.5rem; }
+    .panel-list a { font-size: 1.1rem; }
+    #indicator { right: 12px; }
+    #bottom-label { display: none; }
+  }
+</style>
 </head>
 <body>
 
 <!-- イントロ -->
-<div id="intro">
-  <div class="intro-logo" id="intro-logo">風雲！決算城</div>
-</div>
+<div id="intro"><div id="intro-logo">風雲！決算城</div></div>
 
-<!-- ナビゲーション -->
-<nav id="nav">
-  <a href="/" class="nav-logo" id="nav-logo">風雲！決算城</a>
+<!-- Nav -->
+<nav>
+  <a href="/" class="logo">風雲！決算城</a>
   <div class="nav-links">
-    <a id="panel-open">記事一覧</a>
+    <span id="panel-open">記事一覧</span>
     <a href="articles/001_google_alphabet.html">about</a>
   </div>
 </nav>
 
+<!-- Stage -->
+<div id="stage"></div>
+
 <!-- 記事一覧パネル -->
 <div id="panel">
-  <button class="panel-close" id="panel-close">✕ 閉じる</button>
+  <button class="panel-close-btn" id="panel-close">✕ 閉じる</button>
   <p class="panel-label">Articles</p>
   <ul class="panel-list">
     <li>
       <a href="articles/001_google_alphabet.html">
-        <span class="item-num">001</span>
+        <span class="p-num">001</span>
         Alphabet × 織田信長
-        <span class="item-score">88点</span>
+        <span class="p-score">88</span>
       </a>
     </li>
     <li>
       <a href="articles/002_apple_japan.html">
-        <span class="item-num">002</span>
+        <span class="p-num">002</span>
         Apple × 織田信長
-        <span class="item-score">88点</span>
+        <span class="p-score">88</span>
       </a>
     </li>
     <li>
       <a href="articles/003_microsoft_japan.html">
-        <span class="item-num">003</span>
+        <span class="p-num">003</span>
         Microsoft × 織田信長
-        <span class="item-score">93点</span>
+        <span class="p-score">93</span>
       </a>
     </li>
   </ul>
 </div>
 
-<!-- スライドショー -->
-<div id="slides">
+<!-- 右インジケーター -->
+<div id="indicator"></div>
 
-  <section class="slide active" data-index="0" onclick="location.href='articles/001_google_alphabet.html'">
-    <div class="slide-bg" style="background-image:url('images/001_hero.jpg')"></div>
-    <div class="slide-overlay"></div>
-    <div class="slide-num">01 / 03</div>
-    <div class="slide-body">
-      <div class="slide-body-left">
-        <span class="slide-castle">安土城 — 織田信長</span>
-        <h2 class="slide-title">売上3,500億ドルの安土城<br>検索の天下人、AIで再び動く</h2>
-        <p class="slide-meta">Alphabet（Google）2024年12月期決算</p>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.8rem;">
-        <span class="slide-score">FIRE 88</span>
-        <a href="articles/001_google_alphabet.html" class="slide-link" onclick="event.stopPropagation()">記事を読む →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide" data-index="1" onclick="location.href='articles/002_apple_japan.html'">
-    <div class="slide-bg" style="background-image:url('images/002_hero.jpg')"></div>
-    <div class="slide-overlay"></div>
-    <div class="slide-num">02 / 03</div>
-    <div class="slide-body">
-      <div class="slide-body-left">
-        <span class="slide-castle">安土城 — 織田信長</span>
-        <h2 class="slide-title">FCF1,120億ドルの安土城<br>エコシステムという見えない城壁</h2>
-        <p class="slide-meta">Apple 2024年9月期決算（FY2024）</p>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.8rem;">
-        <span class="slide-score">FIRE 88</span>
-        <a href="articles/002_apple_japan.html" class="slide-link" onclick="event.stopPropagation()">記事を読む →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="slide" data-index="2" onclick="location.href='articles/003_microsoft_japan.html'">
-    <div class="slide-bg" style="background-image:url('images/003_hero.jpg')"></div>
-    <div class="slide-overlay"></div>
-    <div class="slide-num">03 / 03</div>
-    <div class="slide-body">
-      <div class="slide-body-left">
-        <span class="slide-castle">安土城 — 織田信長</span>
-        <h2 class="slide-title">営業利益率43%の安土城<br>OS・Office・Azure、三位一体の覇権</h2>
-        <p class="slide-meta">Microsoft 2024年6月期決算（FY2024）</p>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.8rem;">
-        <span class="slide-score">FIRE 93</span>
-        <a href="articles/003_microsoft_japan.html" class="slide-link" onclick="event.stopPropagation()">記事を読む →</a>
-      </div>
-    </div>
-  </section>
-
-</div>
-
-<!-- スクロールインジケーター -->
-<div id="scroll-indicator">
-  <div class="s-dot active" data-i="0"></div>
-  <div class="s-dot" data-i="1"></div>
-  <div class="s-dot" data-i="2"></div>
-</div>
+<!-- 下部ラベル -->
+<div id="bottom-label">最新記事</div>
 
 <script>
-(() => {
-  const POOL = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+// ── スライドデータ
+const slides = [
+  {
+    img:      'images/001_hero.jpg',
+    castle:   '安土城 — 織田信長',
+    title:    '売上3,500億ドルの安土城',
+    director: 'Alphabet（Google）2024年12月期',
+    score:    'FIRE SCORE  88',
+    href:     'articles/001_google_alphabet.html',
+  },
+  {
+    img:      'images/002_hero.jpg',
+    castle:   '安土城 — 織田信長',
+    title:    'FCF1,120億ドルの安土城',
+    director: 'Apple  2024年9月期',
+    score:    'FIRE SCORE  88',
+    href:     'articles/002_apple_japan.html',
+  },
+  {
+    img:      'images/003_hero.jpg',
+    castle:   '安土城 — 織田信長',
+    title:    '営業利益率43%の安土城',
+    director: 'Microsoft  2024年6月期',
+    score:    'FIRE SCORE  93',
+    href:     'articles/003_microsoft_japan.html',
+  },
+];
 
-  function scramble(el, cb) {
-    const target = el.textContent.trim();
-    let frame = 0;
-    const total = Math.ceil(target.length / 1.5) + 6;
-    (function tick() {
-      const done = Math.floor(frame * 1.5);
-      el.textContent = [...target].map((ch, i) => {
-        if (/[\s　。、！？・「」【】（）／—]/.test(ch)) return ch;
-        return i < done ? ch : POOL[Math.floor(Math.random() * POOL.length)];
-      }).join('');
-      frame++;
-      if (frame <= total) requestAnimationFrame(tick);
-      else { el.textContent = target; if (cb) cb(); }
-    })();
-  }
+const stage     = document.getElementById('stage');
+const indicator = document.getElementById('indicator');
+let current     = 0;
+let isAnimating = false;
+let autoTimer;
 
-  // ── イントロ ──
-  const intro     = document.getElementById('intro');
-  const introLogo = document.getElementById('intro-logo');
-  const navLogo   = document.getElementById('nav-logo');
-  const navLinks  = document.querySelectorAll('.nav-links a');
-  const indicator = document.getElementById('scroll-indicator');
+// ── スライド生成
+function buildSlide(data, index) {
+  const el = document.createElement('div');
+  el.className = 'slide';
+  el.dataset.index = index;
 
-  scramble(introLogo, () => {
+  // フルBG
+  const bg = document.createElement('div');
+  bg.className = 'slide-bg';
+  bg.style.backgroundImage = `url('${data.img}')`;
+
+  // 左パネル
+  const pL = document.createElement('div');
+  pL.className = 'panel-left';
+  const pLi = document.createElement('div');
+  pLi.className = 'panel-inner';
+  pLi.style.backgroundImage = `url('${data.img}')`;
+  pL.appendChild(pLi);
+
+  // 右パネル
+  const pR = document.createElement('div');
+  pR.className = 'panel-right';
+  const pRi = document.createElement('div');
+  pRi.className = 'panel-inner';
+  pRi.style.backgroundImage = `url('${data.img}')`;
+  pR.appendChild(pRi);
+
+  // テキスト
+  const txt = document.createElement('div');
+  txt.className = 'slide-text';
+  txt.innerHTML = `
+    <span class="work-castle">${data.castle}</span>
+    <div class="work-title">${data.title}</div>
+    <div class="work-director">${data.director}</div>
+    <span class="work-score">${data.score}</span>
+    <a class="view-film" href="${data.href}">記事を読む →</a>
+  `;
+
+  el.appendChild(bg);
+  el.appendChild(pL);
+  el.appendChild(pR);
+  el.appendChild(txt);
+  return el;
+}
+
+const slideEls = slides.map((d, i) => {
+  const el = buildSlide(d, i);
+  stage.appendChild(el);
+  return el;
+});
+
+// ── インジケーター生成
+slides.forEach((_, i) => {
+  const line = document.createElement('span');
+  line.className = 'ind-line' + (i === 0 ? ' active' : '');
+  line.addEventListener('click', () => goTo(i));
+  indicator.appendChild(line);
+});
+
+function updateIndicator(idx) {
+  document.querySelectorAll('.ind-line').forEach((l, i) => l.classList.toggle('active', i === idx));
+}
+
+// ── 初期化
+slideEls[0].classList.add('is-current');
+slideEls[1 % slides.length].classList.add('is-next');
+
+// ── トランジション
+function goTo(next) {
+  if (isAnimating || next === current) return;
+  isAnimating = true;
+  clearTimeout(autoTimer);
+
+  const outEl = slideEls[current];
+  const inEl  = slideEls[next];
+
+  inEl.classList.remove('is-next');
+  inEl.classList.add('is-next');
+  outEl.classList.add('is-splitting');
+
+  const dur = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--transition-duration')) + 60;
+  setTimeout(() => {
+    outEl.classList.remove('is-current', 'is-splitting');
+    outEl.querySelectorAll('.panel-left, .panel-right').forEach(p => {
+      p.style.animation = 'none';
+      p.offsetHeight;
+      p.style.animation = '';
+    });
+    inEl.classList.remove('is-next');
+    inEl.classList.add('is-current');
+
+    const nextNext = (next + 1) % slides.length;
+    slideEls.forEach((el, i) => { if (i !== next) el.classList.remove('is-next'); });
+    slideEls[nextNext].classList.add('is-next');
+
+    current = next;
+    updateIndicator(current);
+    isAnimating = false;
+    scheduleAuto();
+  }, dur);
+}
+
+function nextSlide() { goTo((current + 1) % slides.length); }
+function scheduleAuto() { autoTimer = setTimeout(nextSlide, 5000); }
+scheduleAuto();
+
+// ── ステージクリックで次へ（リンクは除く）
+stage.addEventListener('click', e => {
+  if (e.target.tagName === 'A') return;
+  clearTimeout(autoTimer);
+  nextSlide();
+});
+
+// ── パネル開閉
+document.getElementById('panel-open').addEventListener('click', () => document.getElementById('panel').classList.add('open'));
+document.getElementById('panel-close').addEventListener('click', () => document.getElementById('panel').classList.remove('open'));
+
+// ── イントロ（スクランブル）
+const POOL = 'あいうえおかきくけこさしすせそたちつてと0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const introLogo = document.getElementById('intro-logo');
+const introEl   = document.getElementById('intro');
+const target    = introLogo.textContent;
+let frame = 0;
+const total = Math.ceil(target.length / 1.5) + 6;
+(function tick() {
+  const done = Math.floor(frame * 1.5);
+  introLogo.textContent = [...target].map((ch, i) => {
+    if (/[\s　！？・「」【】（）／—]/.test(ch)) return ch;
+    return i < done ? ch : POOL[Math.floor(Math.random() * POOL.length)];
+  }).join('');
+  frame++;
+  if (frame <= total) { requestAnimationFrame(tick); }
+  else {
+    introLogo.textContent = target;
     setTimeout(() => {
-      intro.classList.add('hidden');
-      setTimeout(() => {
-        intro.style.display = 'none';
-        // ナビとインジケーターをフェードイン
-        navLogo.style.opacity  = '1';
-        navLinks.forEach(a => a.style.opacity = '0.7');
-        indicator.style.opacity = '1';
-      }, 900);
-    }, 600);
-  });
-
-  // ── パネル開閉 ──
-  document.getElementById('panel-open').addEventListener('click', () => {
-    document.getElementById('panel').classList.add('open');
-  });
-  document.getElementById('panel-close').addEventListener('click', () => {
-    document.getElementById('panel').classList.remove('open');
-  });
-
-  // ── スクロールスナップ対応：アクティブスライド検知 ──
-  const slidesEl = document.getElementById('slides');
-  const slides   = document.querySelectorAll('.slide');
-  const dots     = document.querySelectorAll('.s-dot');
-
-  function updateActive() {
-    const idx = Math.round(slidesEl.scrollTop / window.innerHeight);
-    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
-    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      introEl.classList.add('hidden');
+      setTimeout(() => introEl.style.display = 'none', 900);
+    }, 500);
   }
-
-  slidesEl.addEventListener('scroll', updateActive, { passive: true });
-  updateActive();
 })();
 </script>
 </body>
