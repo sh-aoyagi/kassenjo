@@ -137,24 +137,35 @@
   /* ─── テキストオーバーレイ ─── */
   .slide-text {
     position: absolute;
-    left: 0; right: 0;          /* 全幅に広げる */
-    top: 50%;
-    transform: translateY(-50%);
+    inset: 0;                    /* 全面を覆う */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;     /* 完全中央 */
     text-align: center;
     color: var(--white);
     pointer-events: none;
     white-space: nowrap;
     z-index: 10;
-    /* ボックスではなく左右フェードの帯 */
+    background: none;
+  }
+
+  /* 帯は疑似要素で横方向にグラデーション */
+  .slide-text::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%; transform: translateY(-50%);
+    height: 13rem;               /* テキスト分の高さ */
     background: linear-gradient(
       to right,
       transparent 0%,
-      rgba(0,0,0,0.78) 15%,
-      rgba(0,0,0,0.82) 50%,
-      rgba(0,0,0,0.78) 85%,
+      rgba(0,0,0,0.80) 12%,
+      rgba(0,0,0,0.84) 50%,
+      rgba(0,0,0,0.80) 88%,
       transparent 100%
     );
-    padding: 2.4rem 0;
+    z-index: -1;
   }
 
   .slide-text .work-castle {
@@ -554,7 +565,7 @@ function goTo(next) {
         isAnimating = false;
         scheduleAuto();
       }, 950); // フェードイン完了を待ってから次を受け付ける
-    }, 1000); // 1秒の黒
+    }, 300); // 黒の時間
   }, splitDur);
 }
 
