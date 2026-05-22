@@ -308,9 +308,31 @@ body.article-body {
   gap: 2px;
   background: var(--border);
   margin: 1.5rem 0;
+  align-items: start;
 }
 
 .koma { background: var(--black2); overflow: hidden; }
+
+/* 右コマ（偶数番目）に段差 */
+.yonkoma-grid .koma:nth-child(even) {
+  margin-top: 100px;
+}
+
+/* フェードインアニメ */
+@keyframes komaFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.yonkoma-grid .koma {
+  opacity: 0;
+  animation: komaFadeIn 0.6s ease forwards;
+}
+
+/* 左コマ：通常 */
+.yonkoma-grid .koma:nth-child(odd)  { animation-delay: 0.1s; }
+/* 右コマ：0.3秒遅らせる */
+.yonkoma-grid .koma:nth-child(even) { animation-delay: 0.4s; }
 
 .koma .koma-img {
   aspect-ratio: 3/4;
@@ -444,6 +466,11 @@ h2.section-heading,
   .dialog-line { flex-direction: column; gap: 0.2rem; }
   .speaker { min-width: auto; }
 
-  .yonkoma-grid { gap: 1px; }
+  /* スマホ：縦1列・段差なし */
+  .yonkoma-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+  .yonkoma-grid .koma:nth-child(even) { margin-top: 0; }
   .koma .koma-serif { font-size: 0.7rem; padding: 0.5rem; }
 }
