@@ -335,7 +335,7 @@ body.article-body {
 .yonkoma-grid .koma:nth-child(even) { animation-delay: 0.4s; }
 
 .koma .koma-img {
-  aspect-ratio: 3/4;
+  aspect-ratio: 1/1;
   overflow: hidden;
   background: var(--black3);
 }
@@ -473,6 +473,5 @@ h2.section-heading,
     padding: 0 60px;
   }
   .yonkoma-grid .koma:nth-child(even) { margin-top: 0; }
-  .koma .koma-img { aspect-ratio: 3/4; }
   .koma .koma-serif { font-size: 0.7rem; padding: 0.5rem; }
 }
