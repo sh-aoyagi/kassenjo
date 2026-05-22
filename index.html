@@ -364,7 +364,16 @@
   /* ─── スマホ ─── */
   @media (max-width: 768px) {
     nav { padding: 20px; }
-    .slide-text { white-space: normal; }
+    .slide-text {
+      white-space: normal;
+      padding: 0 1.8rem;
+      align-items: center;
+    }
+    .slide-text .work-title,
+    .slide-text .work-director {
+      width: 100%;
+      word-break: auto-phrase;
+    }
     #panel { padding: 3rem 1.5rem; }
     .panel-list a { font-size: 1.1rem; }
     #indicator { right: 12px; }
