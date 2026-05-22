@@ -1,69 +1,521 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>風雲！決算城 ｜ 敵は経済にあり！</title>
-  <meta name="description" content="戦国武将が現代企業の決算書を斬る！金融教育エンタメメディア">
-  <meta property="og:title" content="風雲！決算城 ｜ 敵は経済にあり！">
-  <meta property="og:description" content="戦国武将が現代企業の決算書を斬る！金融教育エンタメメディア">
+  <meta name="description" content="戦国武将が現代企業の決算書を斬る。金融教育エンタメメディア。">
+  <meta property="og:title" content="風雲！決算城">
+  <meta property="og:description" content="戦国武将が現代企業の決算書を斬る。">
   <meta property="og:type" content="website">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VSZZMHJD2M"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VSZZMHJD2M');</script>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    /* TOP専用：body・htmlをフルビューポートに固定 */
-    html, body { height: 100%; overflow: hidden; background: var(--black); }
-    @media (max-width: 768px) { html, body { overflow: auto; } }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:   #080808;
+      --white:   #f0ebe0;
+      --gold:    #c9a84c;
+      --crimson: #c0392b;
+      --gray:    #888;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      overflow: hidden;
+    }
+
+    /* ==============================
+       イントロ
+    ============================== */
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: opacity 0.9s ease;
+    }
+
+    #intro.hidden { opacity: 0; }
+
+    .intro-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      letter-spacing: 0.3em;
+      color: var(--white);
+    }
+
+    /* ==============================
+       ナビゲーション（Blue Paris式）
+    ============================== */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.8rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      mix-blend-mode: normal;
+    }
+
+    .nav-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover { opacity: 0.5 !important; }
+
+    /* ==============================
+       記事一覧パネル（ドロワー）
+    ============================== */
+    #panel {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 3rem;
+      transform: translateX(-100%);
+      transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+    }
+
+    #panel.open { transform: translateX(0); }
+
+    .panel-close {
+      position: absolute;
+      top: 1.8rem;
+      right: 2.5rem;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+    }
+
+    .panel-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--gray);
+      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+    }
+
+    .panel-list { list-style: none; }
+
+    .panel-list li {
+      border-top: 1px solid #1e1e1e;
+      padding: 1.2rem 0;
+    }
+
+    .panel-list li:last-child { border-bottom: 1px solid #1e1e1e; }
+
+    .panel-list a {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      color: var(--white);
+      text-decoration: none;
+      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .panel-list a:hover { color: var(--gold); }
+
+    .panel-list .item-num {
+      font-size: 0.65rem;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+    }
+
+    .panel-list .item-score {
+      margin-left: auto;
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    /* ==============================
+       スライドコンテナ（スクロールスナップ）
+    ============================== */
+    #slides {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+    }
+
+    #slides::-webkit-scrollbar { display: none; }
+
+    /* ==============================
+       各スライド
+    ============================== */
+    .slide {
+      height: 100vh;
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+
+    .slide.active .slide-bg { transform: scale(1); }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.35) 45%,
+        rgba(0,0,0,0.15) 100%
+      );
+    }
+
+    /* テキストエリア（Blue Paris式：左下） */
+    .slide-body {
+      position: absolute;
+      bottom: 3rem;
+      left: 3rem;
+      right: 3rem;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .slide-body-left { max-width: 60%; }
+
+    .slide-castle {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+
+    .slide-title {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+
+    .slide-meta {
+      font-size: 0.72rem;
+      color: rgba(240,235,224,0.5);
+      letter-spacing: 0.08em;
+      font-weight: 300;
+    }
+
+    /* 右下：「記事を読む →」（Blue Paris の "view film →" */
+    .slide-link {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+      white-space: nowrap;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(240,235,224,0.3);
+    }
+
+    .slide-link:hover { opacity: 1; border-bottom-color: var(--gold); color: var(--gold); }
+
+    /* スライド番号（右上） */
+    .slide-num {
+      position: absolute;
+      top: 2rem;
+      right: 2.5rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: rgba(240,235,224,0.4);
+      z-index: 2;
+    }
+
+    /* FIREスコア（右下の小さい数字） */
+    .slide-score {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      opacity: 0.8;
+      white-space: nowrap;
+      padding-bottom: 4px;
+    }
+
+    /* ==============================
+       スクロールインジケーター（右端縦線）
+    ============================== */
+    #scroll-indicator {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .s-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(240,235,224,0.25);
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .s-dot.active {
+      background: var(--gold);
+      transform: scale(1.5);
+    }
+
+    /* ==============================
+       スマホ対応
+    ============================== */
+    @media (max-width: 768px) {
+      #nav { padding: 1.2rem 1.5rem; }
+      .slide-body { bottom: 2rem; left: 1.5rem; right: 1.5rem; }
+      .slide-body-left { max-width: 80%; }
+      .slide-title { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+      #panel { padding: 3rem 1.5rem; }
+      .panel-list a { font-size: 1.2rem; }
+      #scroll-indicator { right: 0.8rem; }
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="site-title">風雲！決算城</div>
-  <div class="site-tagline">敵は経済にあり！</div>
-</header>
+<!-- イントロ -->
+<div id="intro">
+  <div class="intro-logo" id="intro-logo">風雲！決算城</div>
+</div>
 
-<div class="top-viewport">
-
-  <!-- 左：メイン記事（001 Alphabet） -->
-  <a href="articles/001_google_alphabet.html" class="top-hero">
-    <img class="hero-img" src="https://picsum.photos/seed/kassenjo001/1280/900" alt="Alphabet×織田信長">
-    <div class="hero-overlay"></div>
-    <div class="hero-body">
-      <span class="hero-badge">安土城</span>
-      <div class="hero-title">売上3,500億ドルの安土城<br>検索の天下人、AIで再び動く</div>
-      <div class="hero-meta">Alphabet（Google）× 織田信長</div>
-      <div class="hero-score">FIREスコア：88点 ★激走候補</div>
-    </div>
-  </a>
-
-  <!-- 右：サブ記事リスト（002・003） -->
-  <div class="top-sidebar">
-
-    <a href="articles/002_apple_japan.html" class="top-sidebar-card">
-      <img class="card-img" src="https://picsum.photos/seed/kassenjo002/720/500" alt="Apple×織田信長">
-      <div class="card-overlay"></div>
-      <div class="card-body">
-        <span class="card-badge">安土城</span>
-        <div class="card-title">FCF1,120億ドルの安土城<br>エコシステムという見えない城壁</div>
-        <div class="card-score">Apple × 織田信長 ｜ 88点</div>
-      </div>
-    </a>
-
-    <a href="articles/003_microsoft_japan.html" class="top-sidebar-card">
-      <img class="card-img" src="https://picsum.photos/seed/kassenjo003/720/500" alt="Microsoft×織田信長">
-      <div class="card-overlay"></div>
-      <div class="card-body">
-        <span class="card-badge">安土城</span>
-        <div class="card-title">営業利益率43%の安土城<br>OS・Office・Azure、三位一体の覇権</div>
-        <div class="card-score">Microsoft × 織田信長 ｜ 93点</div>
-      </div>
-    </a>
-
+<!-- ナビゲーション -->
+<nav id="nav">
+  <a href="/" class="nav-logo" id="nav-logo">風雲！決算城</a>
+  <div class="nav-links">
+    <a id="panel-open">記事一覧</a>
+    <a href="articles/001_google_alphabet.html">about</a>
   </div>
+</nav>
+
+<!-- 記事一覧パネル -->
+<div id="panel">
+  <button class="panel-close" id="panel-close">✕ 閉じる</button>
+  <p class="panel-label">Articles</p>
+  <ul class="panel-list">
+    <li>
+      <a href="articles/001_google_alphabet.html">
+        <span class="item-num">001</span>
+        Alphabet × 織田信長
+        <span class="item-score">88点</span>
+      </a>
+    </li>
+    <li>
+      <a href="articles/002_apple_japan.html">
+        <span class="item-num">002</span>
+        Apple × 織田信長
+        <span class="item-score">88点</span>
+      </a>
+    </li>
+    <li>
+      <a href="articles/003_microsoft_japan.html">
+        <span class="item-num">003</span>
+        Microsoft × 織田信長
+        <span class="item-score">93点</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- スライドショー -->
+<div id="slides">
+
+  <section class="slide active" data-index="0" onclick="location.href='articles/001_google_alphabet.html'">
+    <div class="slide-bg" style="background-image:url('https://picsum.photos/seed/kassenjo001/1920/1080')"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-num">01 / 03</div>
+    <div class="slide-body">
+      <div class="slide-body-left">
+        <span class="slide-castle">安土城 — 織田信長</span>
+        <h2 class="slide-title">売上3,500億ドルの安土城<br>検索の天下人、AIで再び動く</h2>
+        <p class="slide-meta">Alphabet（Google）2024年12月期決算</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.8rem;">
+        <span class="slide-score">FIRE 88</span>
+        <a href="articles/001_google_alphabet.html" class="slide-link" onclick="event.stopPropagation()">記事を読む →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="1" onclick="location.href='articles/002_apple_japan.html'">
+    <div class="slide-bg" style="background-image:url('https://picsum.photos/seed/kassenjo002/1920/1080')"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-num">02 / 03</div>
+    <div class="slide-body">
+      <div class="slide-body-left">
+        <span class="slide-castle">安土城 — 織田信長</span>
+        <h2 class="slide-title">FCF1,120億ドルの安土城<br>エコシステムという見えない城壁</h2>
+        <p class="slide-meta">Apple 2024年9月期決算（FY2024）</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.8rem;">
+        <span class="slide-score">FIRE 88</span>
+        <a href="articles/002_apple_japan.html" class="slide-link" onclick="event.stopPropagation()">記事を読む →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="2" onclick="location.href='articles/003_microsoft_japan.html'">
+    <div class="slide-bg" style="background-image:url('https://picsum.photos/seed/kassenjo003/1920/1080')"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-num">03 / 03</div>
+    <div class="slide-body">
+      <div class="slide-body-left">
+        <span class="slide-castle">安土城 — 織田信長</span>
+        <h2 class="slide-title">営業利益率43%の安土城<br>OS・Office・Azure、三位一体の覇権</h2>
+        <p class="slide-meta">Microsoft 2024年6月期決算（FY2024）</p>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.8rem;">
+        <span class="slide-score">FIRE 93</span>
+        <a href="articles/003_microsoft_japan.html" class="slide-link" onclick="event.stopPropagation()">記事を読む →</a>
+      </div>
+    </div>
+  </section>
 
 </div>
 
+<!-- スクロールインジケーター -->
+<div id="scroll-indicator">
+  <div class="s-dot active" data-i="0"></div>
+  <div class="s-dot" data-i="1"></div>
+  <div class="s-dot" data-i="2"></div>
+</div>
+
+<script>
+(() => {
+  const POOL = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  function scramble(el, cb) {
+    const target = el.textContent.trim();
+    let frame = 0;
+    const total = Math.ceil(target.length / 1.5) + 6;
+    (function tick() {
+      const done = Math.floor(frame * 1.5);
+      el.textContent = [...target].map((ch, i) => {
+        if (/[\s　。、！？・「」【】（）／—]/.test(ch)) return ch;
+        return i < done ? ch : POOL[Math.floor(Math.random() * POOL.length)];
+      }).join('');
+      frame++;
+      if (frame <= total) requestAnimationFrame(tick);
+      else { el.textContent = target; if (cb) cb(); }
+    })();
+  }
+
+  // ── イントロ ──
+  const intro     = document.getElementById('intro');
+  const introLogo = document.getElementById('intro-logo');
+  const navLogo   = document.getElementById('nav-logo');
+  const navLinks  = document.querySelectorAll('.nav-links a');
+  const indicator = document.getElementById('scroll-indicator');
+
+  scramble(introLogo, () => {
+    setTimeout(() => {
+      intro.classList.add('hidden');
+      setTimeout(() => {
+        intro.style.display = 'none';
+        // ナビとインジケーターをフェードイン
+        navLogo.style.opacity  = '1';
+        navLinks.forEach(a => a.style.opacity = '0.7');
+        indicator.style.opacity = '1';
+      }, 900);
+    }, 600);
+  });
+
+  // ── パネル開閉 ──
+  document.getElementById('panel-open').addEventListener('click', () => {
+    document.getElementById('panel').classList.add('open');
+  });
+  document.getElementById('panel-close').addEventListener('click', () => {
+    document.getElementById('panel').classList.remove('open');
+  });
+
+  // ── スクロールスナップ対応：アクティブスライド検知 ──
+  const slidesEl = document.getElementById('slides');
+  const slides   = document.querySelectorAll('.slide');
+  const dots     = document.querySelectorAll('.s-dot');
+
+  function updateActive() {
+    const idx = Math.round(slidesEl.scrollTop / window.innerHeight);
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  slidesEl.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+})();
+</script>
 </body>
 </html>
