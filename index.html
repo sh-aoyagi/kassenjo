@@ -386,6 +386,15 @@
       width: 100%;
       word-break: auto-phrase;
     }
+    /* view-filmのpadding50pxがflexの重心を上にずらすため、スマホは小さくする */
+    .slide-text .view-film {
+      margin-top: 12px;
+      padding: 16px 28px;
+    }
+    .slide-text .view-film::after {
+      bottom: 16px;
+      left: 28px; right: 28px;
+    }
     #panel { padding: 3rem 1.5rem; }
     .panel-list a { font-size: 1.1rem; }
     #indicator { right: 12px; }
