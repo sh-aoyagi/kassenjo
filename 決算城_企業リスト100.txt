@@ -16,7 +16,7 @@ No.  企業名                          城主      城                業種
 
 001  Alphabet（Google Japan）         信長      安土城            IT/広告/クラウド
 002  Apple Japan                      信長      安土城            IT/ハード/エコシステム
-003  Microsoft Japan                  信長      安土城            IT/クラウド/OS
+003  Microsoft Japan                  孔明      荊州の城          IT/クラウド/OS
 004  Amazon Japan（AWS含む）          信長      安土城            EC/クラウド/物流
 005  Meta Japan（Facebook）           信長      安土城            SNS/広告/VR
 006  McKinsey & Company Japan         信長      安土城            コンサルティング
