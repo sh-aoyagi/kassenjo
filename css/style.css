@@ -305,13 +305,13 @@ body.article-body {
 .yonkoma-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--border);
+  gap: 40px;              /* PC: コマ間40px */
+  background: var(--black);
   margin: 1.5rem 0;
   align-items: start;
 }
 
-.koma { background: var(--black2); overflow: hidden; }
+.koma { background: var(--black); overflow: hidden; }
 
 /* 右コマ（偶数番目）に段差 */
 .yonkoma-grid .koma:nth-child(even) {
@@ -335,9 +335,16 @@ body.article-body {
 .yonkoma-grid .koma:nth-child(even) { animation-delay: 0.4s; }
 
 .koma .koma-img {
-  aspect-ratio: 1/1;
   overflow: hidden;
-  background: var(--black3);
+  background: var(--black);
+}
+
+/* object-fit: cover をコマ画像だけ contain に上書き（クロップ防止） */
+.koma .koma-img img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .koma .koma-serif {
@@ -466,11 +473,11 @@ h2.section-heading,
   .dialog-line { flex-direction: column; gap: 0.2rem; }
   .speaker { min-width: auto; }
 
-  /* スマホ：縦1列・段差なし・内側60px */
+  /* スマホ：縦1列・段差なし */
   .yonkoma-grid {
     grid-template-columns: 1fr;
-    gap: 1px;
-    padding: 0 60px;
+    gap: 16px;
+    padding: 0;
   }
   .yonkoma-grid .koma:nth-child(even) { margin-top: 0; }
   .koma .koma-serif { font-size: 0.7rem; padding: 0.5rem; }
