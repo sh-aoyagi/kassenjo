@@ -203,7 +203,8 @@
   }
   .slide-text .view-film {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: -30px;           /* 見た目のマージンは疑似要素が吸収 */
+    padding: 50px;               /* ヒットエリア50px */
     font-size: clamp(10px, 1vw, 13px);
     font-weight: 400;
     letter-spacing: 0.18em;
@@ -213,18 +214,29 @@
     transition: opacity 0.3s, color 0.2s;
     cursor: pointer;
     text-decoration: none;
-    border-bottom: 1px solid rgba(240,235,224,0.3);
-    padding-bottom: 2px;
+    border-bottom: none;         /* 元のborder-bottomは削除 */
+    position: relative;
     pointer-events: auto;
   }
-  .view-film:hover { color: var(--gold); border-bottom-color: var(--gold); }
+  /* アンダーラインは疑似要素でテキスト直下に */
+  .slide-text .view-film::after {
+    content: '';
+    position: absolute;
+    bottom: 50px;
+    left: 50px; right: 50px;
+    height: 1px;
+    background: rgba(240,235,224,0.35);
+    transition: background 0.2s;
+  }
+  .view-film:hover { color: var(--gold); }
+  .view-film:hover::after { background: var(--gold); }
   .slide.is-current .slide-text .view-film { opacity: 1; }
   .slide.is-current .slide-text { animation: textFadeIn 0.6s 0.4s ease both; }
   .slide.is-splitting .slide-text { opacity: 0; transition: opacity 0.15s; }
 
   @keyframes textFadeIn {
-    from { opacity: 0; transform: translate(-50%, calc(-50% + 14px)); }
-    to   { opacity: 1; transform: translate(-50%, -50%); }
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   /* ─── Nav ─── */
