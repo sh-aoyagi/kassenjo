@@ -335,7 +335,6 @@ body.article-body {
 .yonkoma-grid .koma:nth-child(even) { animation-delay: 0.4s; }
 
 .koma {
-  border: 2px solid rgba(240, 235, 224, 0.2);
 }
 
 .koma .koma-img {
@@ -356,7 +355,6 @@ body.article-body {
   font-size: 0.9rem;
   font-family: 'Noto Serif JP', serif;
   color: var(--white);
-  border-top: 1px solid var(--border);
   line-height: 1.8;
 }
 
@@ -422,7 +420,6 @@ body.article-body {
 .article-img-block img {
   width: 100%;
   display: block;
-  border-radius: 4px;
   height: auto;
   object-fit: cover;
 }
