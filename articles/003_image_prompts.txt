@@ -1,0 +1,151 @@
+================================================================
+  003_microsoft_japan 画像プロンプト集【Gemini Imagen用・更新版】
+  Microsoft × 諸葛孔明 × 荊州の城
+  FIREスコア 93点 ｜ 激走候補（SS）
+================================================================
+
+■ 採用パターン
+  ヒーロー画像：No.17「後光の武将」
+    城02蟻の目 × 自然03マジックアワー × 人物13光の中から現れる
+  4コマ枠パターン：No.16「軍師の策」
+    コマ1：通常長方形（全景・導入）
+    コマ2：横長シネマコマ（地図・俯瞰）
+    コマ3：墨にじみ枠（決断の重み）
+    コマ4：枠なし＋黒背景（覚悟・宣言）
+
+■ Gemini Imagenへの共通注記
+  - 「Generate image」に直接貼り付けてOK
+  - スタイル指定は末尾に書いてある
+  - 日本語プロンプトも通るが英語の方が精度が高い
+  - NG表現（血・暴力・実在人物の顔）はこのプロンプトには含まれていない
+
+================================================================
+  HERO IMAGE ｜ 003_hero.jpg
+  サイズ目安：1200×630px（Web OGP）
+================================================================
+
+【シーン】
+  超ローアングルで荊州の城壁が天に向かって聳え立つ。
+  日没直後のマジックアワー——空はオレンジ、紫、深い藍のグラデーション。
+  前景中央に孔明が立ち、強烈な後光を背負い、
+  光の中から降臨するように読者に迫ってくる。
+  スケール感と神格化が最重要。
+
+【Gemini Imagen プロンプト】
+Epic ultra-low-angle shot of an ancient Chinese castle (Jingzhou fortress), massive stone walls and layered wooden towers rising dramatically against the sky. Magic hour sky immediately after sunset: blazing orange at the horizon bleeding into violet and deep indigo above. In the center foreground, a Chinese military strategist (Zhuge Liang style: white flowing robes, black scholar's cap, white feather fan raised) stands silhouetted against blinding golden divine light, halo radiating behind him like a god descending. Dramatic god-rays pierce through storm clouds. Color palette: deep black, brilliant gold, vermillion red. Japanese manga editorial illustration style, ultra-detailed ink linework, cinematic depth-of-field. Awe-inspiring, mythic, overwhelmingly powerful atmosphere.
+
+================================================================
+  コマ1 ｜ 003_koma1.jpg
+  ト書き：孔明、巻物を広げ数字を一瞥する
+  台詞（吹き出し）：「この43%……10年前から仕込んでおったのじゃろう？」
+  枠：通常長方形（導入）
+================================================================
+
+【シーン】
+  孔明が縦長の巻物（決算書）をゆっくり広げる。
+  指先で「43%」という数字の一行をなぞる。
+  目が細くなり——驚愕ではなく、
+  「やはりそうか」という深い確信の表情。
+  背景は荊州の城の書斎。燭台の炎が揺れている。
+
+【Gemini Imagen プロンプト】
+Dramatic manga panel, standard rectangular black border. A Chinese military strategist (Zhuge Liang, white robes, elegant black hair, feather fan resting at his side) unrolls a long ancient scroll covered in dense financial figures and ink-drawn charts. His slender fingers trace a line reading "43%". His expression is intensely focused — eyes half-lidded, the ghost of a knowing smile at the corner of his lips. Candlelit ancient Chinese study room background, wooden beams, ink brushes, scrolls stacked high. Rich chiaroscuro lighting: warm gold candlelight against deep shadow. Japanese historical drama manga style, clean bold ink linework, selective gold and vermillion color accents on black-and-white base. Square format.
+
+================================================================
+  コマ2 ｜ 003_koma2.jpg
+  ト書き：地図を俯瞰し、Azure・Office・Windowsの配置を指でなぞる
+  台詞（吹き出し）：「Azure+29%……これが長期布陣の答えじゃ。クラウドという地盤なき者に未来はない」
+  枠：横長シネマコマ（地図・俯瞰）
+================================================================
+
+【シーン】
+  神の視点から見下ろした戦略マップ。
+  中央に巨大な雲の城塞「Azure」が金色に輝く。
+  四方を「Windows」「Office 365」「Teams」「Copilot」の砦が囲む。
+  金の街道が中央に向かって放射状に延びる。
+  上空から孔明の小さな人影が羽扇で中央を指している。
+  壮大なスケール感。
+
+【Gemini Imagen プロンプト】
+Ultra-wide cinematic manga panel (2:1 widescreen ratio), NO border or hairline border only. Breathtaking bird's-eye-view war strategy map rendered in Japanese emaki scroll painting style on aged washi paper texture. CENTER: a colossal glowing cloud fortress labeled "Azure" radiates golden-blue light like a divine stronghold. Surrounding it at four cardinal points: stone fortresses labeled "Windows", "Office 365", "Teams", "Copilot", connected by shimmering golden roads that converge at the Azure center. Far above, a tiny silhouette of Zhuge Liang hovers in the sky, pointing his feather fan down at the Azure fortress like a commander surveying his domain. Deep sense of strategic mastery and infinite scale. Ink and gold leaf illustration style, dramatic top-down cinematic composition.
+
+================================================================
+  コマ3 ｜ 003_koma3.jpg
+  ト書き：羽扇を胸に当て、目を閉じ深く息を吸う
+  台詞（吹き出し）：「全軍に策を宿らせる。これが諸葛の兵法じゃ」
+  枠：墨にじみ枠（決断の重み）
+================================================================
+
+【シーン】
+  孔明が両目を閉じ、白い羽扇をそっと胸に押し当てている。
+  息を吸い込む一瞬の静寂。
+  背景に墨が和紙に滲むような抽象的な黒の筆致。
+  全体が静止した時間の中にある。
+  ここが記事の「間」——最も重い一コマ。
+
+【Gemini Imagen プロンプト】
+Profoundly still manga panel with organic ink-bleed border (irregular edges like sumi-e ink spreading on wet washi paper — NOT a geometric frame). Zhuge Liang standing motionless, both eyes closed in deep meditation, his white feather fan pressed gently against his chest over his heart. His white robes flow like calligraphy brushstrokes. Behind him: abstract expressionist sumi-e ink wash — thick black brushstrokes suggest mountain winds, swirling mist, the weight of ten thousand soldiers waiting. Extreme contrast: pure white figure against churning black ink abstraction. The silence before thunder. Japanese ink painting (sumi-e) merged with dramatic manga aesthetic. Gold rim light traces only the edges of his silhouette.
+
+================================================================
+  コマ4 ｜ 003_koma4.jpg
+  ト書き：正面を向き、羽扇を前に突き出して宣言する
+  台詞（吹き出し）：「三位一体の布陣——荊州の城認定じゃ！」
+  枠：枠なし＋漆黒背景（覚悟・宣言）
+================================================================
+
+【シーン】
+  NO BORDER。背景は漆黒。
+  孔明が真正面から読者を見据え、
+  白い羽扇を鋭くカメラに向かって突き出している。
+  これは宣言だ。挑戦だ。10年後を見通した男の確信だ。
+  全コマの中で最もドラマチックに。
+  白と金だけが黒に浮かび上がる。
+
+【Gemini Imagen プロンプト】
+MAXIMUM DRAMA manga climax panel. ABSOLUTELY NO BORDER. Pure jet-black (#000000) background fills the entire frame. Zhuge Liang faces the viewer dead-on in a triumphant declaration: his white feather fan thrusts forward toward the viewer like a sword, his eyes blazing with absolute strategic certainty and the satisfaction of a decade-long plan fully realized. White robes explode outward like wings. ONLY golden rim-lighting and sharp white highlights pick him out from the void — as if he alone exists in a universe of darkness. Hyper-dramatic manga energy: speed lines radiate from him across the black background. The feeling: a general who has won before the battle began. Japanese manga final-panel climax style, extreme contrast, black and gold only.
+
+================================================================
+  Instagram縦型まとめ ｜ 003_yonkoma_instagram.jpg
+  サイズ：1080×1920px（9:16縦型）
+================================================================
+
+【構成メモ（Canvaで合成）】
+  上段：「風雲！決算城」ロゴ（黒地・金文字）
+  コマ1（正方形）
+  コマ2（横長）
+  コマ3（墨枠）
+  コマ4（黒ベタ）
+  下段：ハッシュタグ #決算城 #孔明 #Microsoft #FIRE投資 #決算書
+
+【各コマ台詞テキスト（画像生成後にCanvaで重ねる）】
+  コマ1：「この43%……10年前から仕込んでおったのじゃろう？」
+  コマ2：「Azure+29%……長期布陣の答えじゃ」
+  コマ3：「全軍に策を宿らせる。これが諸葛の兵法じゃ」
+  コマ4：「三位一体の布陣——荊州の城認定じゃ！」
+
+================================================================
+  生成手順（Gemini）
+================================================================
+
+  1. Gemini（gemini.google.com）を開く
+  2. 「画像を生成して」と入力してから上記プロンプトを貼り付ける
+     または "Generate an image: [プロンプト本文]" の形式で貼る
+  3. ヒーロー画像から順番に生成する
+  4. 気に入らなければ「もっとドラマチックに」「孔明をもっと大きく」等で調整
+  5. 保存先：C:\Users\user\Desktop\電脳会社\01_決算城\images\
+     ファイル名：003_hero.jpg / 003_koma1.jpg ～ 003_koma4.jpg
+
+================================================================
+  社名表記ルール（今後の全記事共通）
+================================================================
+
+  ■ 英語系企業（欧米・日本）
+    見出し・本文ともに英語表記を優先
+    例：Microsoft、Apple、Amazon、Alphabet、Sony、Toyota
+
+  ■ 中国系企業
+    カタカナ（漢字名）の形式
+    例：アリババ（阿里巴巴）、ファーウェイ（華為技術）
+        テンセント（騰訊）、バイドゥ（百度）
+
+================================================================

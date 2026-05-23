@@ -334,6 +334,10 @@ body.article-body {
 /* 右コマ：0.3秒遅らせる */
 .yonkoma-grid .koma:nth-child(even) { animation-delay: 0.4s; }
 
+.koma {
+  border: 2px solid rgba(240, 235, 224, 0.2);
+}
+
 .koma .koma-img {
   overflow: hidden;
   background: var(--black);
@@ -349,11 +353,31 @@ body.article-body {
 
 .koma .koma-serif {
   padding: 0.6rem 0.8rem;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-family: 'Noto Serif JP', serif;
   color: var(--white);
   border-top: 1px solid var(--border);
-  line-height: 1.6;
+  line-height: 1.8;
+}
+
+/* v2用：地の文＋セリフの2段構成 */
+.koma .koma-caption {
+  padding: 0.6rem 0.8rem 0.1rem;
+  font-size: 0.82rem;
+  font-family: 'Noto Serif JP', serif;
+  color: var(--gray);
+  border-top: 1px solid var(--border);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.koma .koma-dialog {
+  padding: 0.1rem 0.8rem 0.6rem;
+  font-size: 0.9rem;
+  font-family: 'Noto Serif JP', serif;
+  color: var(--white);
+  font-weight: 700;
+  line-height: 1.8;
 }
 
 /* 対話 */
