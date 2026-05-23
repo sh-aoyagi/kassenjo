@@ -415,6 +415,25 @@ body.article-body {
 .btn-primary { background: var(--gold); color: var(--black); }
 .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
 
+/* 対談中画像 */
+.article-img-block {
+  margin: 2em 0;
+}
+.article-img-block img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  height: auto;
+  object-fit: cover;
+}
+.article-img-block figcaption {
+  font-size: 0.78em;
+  color: var(--gray);
+  margin-top: 0.4em;
+  text-align: right;
+  line-height: 1.6;
+}
+
 /* 免責 */
 .disclaimer {
   font-size: 0.72rem;
