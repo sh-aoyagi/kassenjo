@@ -16,6 +16,40 @@
     gtag('config', 'G-VSZZMHJD2M');
   </script>
   <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* 4コマ：9:16縦長・PC左右2カラム・スマホ天地 */
+    .yonkoma-layout{display:flex;gap:0;align-items:stretch;margin:1.5em 0 2em;border:2px solid #c8a400;}
+    .yonkoma-img-col{flex:0 0 44%;}
+    .yonkoma-caption-col{flex:1;background:#0d0d0d;padding:1.2em 1.4em;}
+    .koma-placeholder-full{background:#0d0d0d;aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;color:#c8a400;font-size:.9em;letter-spacing:.05em;text-align:center;padding:1em;width:100%;border-right:2px solid #c8a400;}
+    .koma-captions{list-style:none;padding:0;margin:0;}
+    .koma-captions li{padding:.7em 0;border-bottom:1px dotted rgba(200,164,0,0.35);font-size:1em;line-height:1.75;color:#fff;}
+    .koma-captions li:last-child{border-bottom:none;}
+    .koma-num{font-weight:700;color:#c8a400;margin-right:.4em;}
+    @media(max-width:768px){
+      .yonkoma-layout{flex-direction:column;}
+      .yonkoma-img-col{flex:none;width:100%;}
+      .koma-placeholder-full{border-right:none;border-bottom:2px solid #c8a400;}
+    }
+    /* ナビゲーション */
+    .article-nav{display:flex;justify-content:space-between;gap:1em;margin:2.5em 0 0;padding-top:1.5em;border-top:2px solid #c8a400;}
+    .article-nav a{flex:1;padding:1em 1.2em;border:1px solid #c8a400;border-radius:4px;text-decoration:none;display:block;}
+    .article-nav a:hover{background:#fdf7ee;}
+    .nav-prev{text-align:left;}.nav-next{text-align:right;}
+    .nav-label{display:block;font-size:.72em;color:#c8a400;letter-spacing:.05em;margin-bottom:.4em;}
+    .nav-castle{display:block;font-size:.95em;color:#1a1a1a;font-weight:600;line-height:1.4;}
+    .nav-company{display:block;font-size:.8em;color:#888;margin-top:.2em;}
+    .nav-empty{flex:1;}
+    /* 記事一覧へ戻る */
+    .back-to-list{text-align:center;margin:1.5em 0 2em;}
+    .back-to-list a{display:inline-block;padding:.7em 2.5em;border:1px solid #c8a400;border-radius:4px;color:#c8a96e;text-decoration:none;font-size:.9em;letter-spacing:.05em;}
+    .back-to-list a:hover{background:#fdf7ee;}
+    /* 決算概要注記 */
+    .data-note{font-size:.78em;color:#999;margin:.2em 0 .8em;text-align:right;}
+    .data-note a{color:#c8a96e;}
+    /* フッター */
+    footer{text-align:center;padding:1.5em 0;font-size:.82em;color:#999;border-top:1px solid #eee;margin-top:2em;}
+  </style>
 </head>
 <body class="article-body">
 
@@ -35,22 +69,22 @@
     <span class="company">Alphabet Inc. / GOOGL</span>
   </div>
   <h1 class="article-headline">売上3,500億ドルの安土城　検索の天下人、AIで再び動く</h1>
-  <p class="article-deck">Alphabet（Google）2024年12月期決算 ｜ 城主：織田信長</p>
-  <div class="fire-pill">FIREスコア 88点 ｜ 激走候補（SS）</div>
+  <p class="article-deck">Alphabet（Google）FY2024通期 ｜ 城主：織田信長</p>
 
   <!-- ヒーロー画像 -->
   <div class="article-hero-img">
-    <img src="../images/001_hero.jpg" alt="安土城×Alphabet">
+    <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=450&fit=crop&auto=format&q=80" alt="安土城×Alphabet" loading="lazy">
   </div>
 
   <!-- 決算概要 -->
-  <h2 class="section-heading">最新決算概要（2024年12月期）</h2>
+  <h2 class="section-heading">最新決算概要（FY2024通期）</h2>
+  <p class="data-note">※最新の数値は <a href="https://abc.xyz/investor/" target="_blank" rel="noopener">Alphabet IR公式サイト</a> でご確認ください</p>
   <table class="data-table">
     <tr><th>項目</th><th>数値</th></tr>
-    <tr><td>売上高</td><td>約3,503億ドル（前年比+9%）</td></tr>
-    <tr><td>営業利益率</td><td>約27%</td></tr>
-    <tr><td>自己資本比率</td><td>約65%</td></tr>
-    <tr><td>FCF</td><td>年500億ドル超（超潤沢）</td></tr>
+    <tr><td>売上高</td><td>約3,503億ドル（前年比+14%）</td></tr>
+    <tr><td>営業利益率</td><td>約32%（前期比+5pt改善）</td></tr>
+    <tr><td>Google Cloud売上</td><td>約430億ドル（+29%・黒字化達成）</td></tr>
+    <tr><td>FCF</td><td>約750億ドル</td></tr>
     <tr><td>CEO</td><td>Sundar Pichai（スンダー・ピチャイ）</td></tr>
   </table>
 
@@ -62,35 +96,22 @@
 
   <!-- 4コマ漫画 -->
   <h2 class="section-heading">漫画でわかるAlphabet</h2>
-  <div class="yonkoma-grid">
-    <div class="koma">
-      <div class="koma-img">
-        <img src="../images/001_koma1.png" alt="コマ1">
-      </div>
-      <div class="koma-serif">2024年12月——。売上3,503億ドル。検索という城で天下を獲ったAlphabet。信長は巻物をそっと閉じた。「…広告で天下を獲った。3,500億ドルの城じゃ。」</div>
+  <div class="yonkoma-layout">
+    <div class="yonkoma-img-col">
+      <div class="koma-placeholder-full">4コマ漫画<br>（1枚・生成予定）</div>
     </div>
-    <div class="koma">
-      <div class="koma-img">
-        <img src="../images/001_koma2.png" alt="コマ2">
-      </div>
-      <div class="koma-serif">「YouTube・Cloud・検索…三方に陣を張ったわ！」三事業が絡み合い、一つの帝国を成していた。信長の目に長篠の炎が宿った。</div>
-    </div>
-    <div class="koma">
-      <div class="koma-img">
-        <img src="../images/001_koma3.png" alt="コマ3">
-      </div>
-      <div class="koma-serif">2022年、ChatGPTという黒船が世界を揺らした。検索90%の王国が、初めて脅威に晒された日。信長の目に鬼火が宿った。「…されど！ChatGPTという黒船が、来おった！！」</div>
-    </div>
-    <div class="koma">
-      <div class="koma-img">
-        <img src="../images/001_koma4.png" alt="コマ4">
-      </div>
-      <div class="koma-serif">信長は振り返らなかった。炎を背に遠くを見据えたまま呟いた。「…Geminiで、次の天下を獲る。」</div>
+    <div class="yonkoma-caption-col">
+      <ol class="koma-captions">
+        <li>2024年12月——。売上3,503億ドル。検索という城で天下を獲ったAlphabet。信長は巻物をそっと閉じた。「…広告で天下を獲った。3,500億ドルの城じゃ。」</li>
+        <li>「YouTube・Cloud・検索…三方に陣を張ったわ！」三事業が絡み合い、一つの帝国を成していた。信長の目に長篠の炎が宿った。</li>
+        <li>2022年、ChatGPTという黒船が世界を揺らした。検索90%の王国が、初めて脅威に晒された日。信長の目に鬼火が宿った。「…されど！ChatGPTという黒船が、来おった！！」</li>
+        <li>信長は振り返らなかった。炎を背に遠くを見据えたまま呟いた。「…Geminiで、次の天下を獲る。」</li>
+      </ol>
     </div>
   </div>
 
   <!-- 城主×CEO対話 -->
-  <h2 class="section-heading">信長 × Sundar Pichai の問答</h2>
+  <h2 class="section-heading">天下布武の革命者・信長、広告帝国の守護者・Pichaiに問う</h2>
   <div class="dialog">
     <div class="dialog-line">
       <span class="speaker">信長</span>
@@ -139,7 +160,7 @@
   </div>
 
   <figure class="article-img-block">
-    <img src="../images/001_dialog_mid.jpg" alt="信長とPichai——安土城と検索帝国が交差する瞬間">
+    <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=300&fit=crop&crop=bottom&auto=format&q=80" alt="安土城——信長が天下を俯瞰した場所" loading="lazy">
     <figcaption>長篠の鉄砲3,000丁が、今はTPU・DeepMind・Geminiに変わった</figcaption>
   </figure>
 
@@ -148,23 +169,13 @@
 
   <p class="sub-heading">PL（兵糧）分析</p>
   <p>売上高3,503億ドルは、日本円換算で約52兆円（1ドル＝150円換算）。日本最大企業トヨタの売上45兆円を上回る規模。</p>
-  <p>営業利益率27%は広告事業の圧倒的な利益率が支える。ただし広告依存（売上の77%）は景気後退時の急減速リスクが存在する。クラウド部門（Google Cloud）は前年比+45%成長で年間収益が約440億ドルに拡大。黒字化も達成し、AWSとAzureへのキャッチアップが本格化している。</p>
+  <p>営業利益率32%は広告事業の圧倒的な利益率が支える（前期比+5pt改善）。ただし広告依存（売上の約77%）は景気後退時の急減速リスクが存在する。Google Cloudは+29%成長で年間約430億ドルに拡大し黒字化も達成。AWSとAzureへのキャッチアップが本格化している。</p>
 
   <p class="sub-heading">BS（石垣）分析</p>
   <p>自己資本比率65%は、GAFAM5社の中でもトップクラスの堅固さ。現金・短期投資の保有額は約1,000億ドル超。「現金の城」とも言える財務要塞。有利子負債は限定的で、財務リスクは事実上ゼロに近い。</p>
 
   <p class="sub-heading">CF（堀の水）分析</p>
   <p>フリーCFは年500億ドル超（約7.5兆円）。自社株買い規模は年700億ドルを超えることもあり、EPS（1株利益）を人為的に押し上げる構造を持つ。配当は実施しているが利回りは低く、成長企業の姿勢を維持。</p>
-
-  <p class="sub-heading">FIREスコア内訳</p>
-  <table class="data-table">
-    <tr><th>軸</th><th>スコア</th><th>コメント</th></tr>
-    <tr><td>BS強度</td><td>88点</td><td>自己資本65%・現金ダム保有</td></tr>
-    <tr><td>CF安定性</td><td>90点</td><td>FCF超潤沢・年500億ドル</td></tr>
-    <tr><td>PL収益性</td><td>85点</td><td>営利率27%・広告一強からの多角化</td></tr>
-    <tr><td>成長性</td><td>88点</td><td>クラウド+45%・AI投資加速</td></tr>
-    <tr><td><strong>総合</strong></td><td><strong>88点</strong></td><td><strong>激走候補（SS）</strong></td></tr>
-  </table>
 
   <p class="sub-heading">城代の総評</p>
   <p>安土城の石垣は現金で満たされ、弾薬庫（FCF）は年500億ドルと底をつかない。信長の本質は「変化を自ら引き起こす者」。AI時代の波を恐れるのではなく、波を自分で起こそうとしているGoogleは、まさに織田信長の城主に相応しい。</p>
@@ -182,21 +193,23 @@
   </div>
 
   <nav class="article-nav">
-    <a href="../index.html" class="nav-prev">
-      <span class="nav-label">◀ 記事一覧</span>
-      風雲！決算城トップへ
-    </a>
+    <span class="nav-empty"></span>
     <a href="002_apple_japan.html" class="nav-next">
       <span class="nav-label">次の記事 ▶</span>
-      FCF1,120億ドルの安土城<br>Apple × 織田信長
+      <span class="nav-castle">小田原城</span>
+      <span class="nav-company">Apple × 北条氏康</span>
     </a>
   </nav>
+
+  <div class="back-to-list">
+    <a href="../index.html">← 記事一覧に戻る</a>
+  </div>
 
 </div>
 
 <script src="../js/main.js"></script>
 <footer>
-  <a href="../index.html">← 記事一覧に戻る</a> ｜ &copy; 2026 風雲！決算城
+  &copy; 2026 風雲！決算城
 </footer>
 
 </body>

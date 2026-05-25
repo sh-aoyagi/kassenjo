@@ -17,63 +17,37 @@
   </script>
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    .article-deck { font-size: 0.85em; }
-    .article-hero-img img { width: 100%; display: block; }
-    @media (max-width: 768px) {
-      .article-hero-img {
-        margin-left: calc(-50vw + 50%);
-        margin-right: calc(-50vw + 50%);
-        width: 100vw;
-      }
+    /* 4コマ：9:16縦長・PC左右2カラム・スマホ天地 */
+    .yonkoma-layout{display:flex;gap:0;align-items:stretch;margin:1.5em 0 2em;border:2px solid #c8a400;}
+    .yonkoma-img-col{flex:0 0 44%;}
+    .yonkoma-caption-col{flex:1;background:#0d0d0d;padding:1.2em 1.4em;}
+    .koma-placeholder-full{background:#0d0d0d;aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;color:#c8a400;font-size:.9em;letter-spacing:.05em;text-align:center;padding:1em;width:100%;border-right:2px solid #c8a400;}
+    .koma-captions{list-style:none;padding:0;margin:0;}
+    .koma-captions li{padding:.7em 0;border-bottom:1px dotted rgba(200,164,0,0.35);font-size:1em;line-height:1.75;color:#fff;}
+    .koma-captions li:last-child{border-bottom:none;}
+    @media(max-width:768px){
+      .yonkoma-layout{flex-direction:column;}
+      .yonkoma-img-col{flex:none;width:100%;}
+      .koma-placeholder-full{border-right:none;border-bottom:2px solid #c8a400;}
     }
-    .koma-serif {
-      font-size: 1em;
-      line-height: 1.8;
-      color: #1a1a1a;
-      padding: 0.6em 0.6em 0.2em;
-      font-weight: 500;
-    }
-    .article-img-block {
-      margin: 2em 0;
-    }
-    .article-img-block img {
-      width: 100%;
-      display: block;
-      border-radius: 4px;
-    }
-    .article-img-block figcaption {
-      font-size: 0.78em;
-      color: #888;
-      margin-top: 0.4em;
-      text-align: right;
-    }
-    .article-nav {
-      display: flex;
-      justify-content: space-between;
-      gap: 1em;
-      margin: 2.5em 0 1em;
-      padding-top: 1.5em;
-      border-top: 1px solid #ddd;
-    }
-    .article-nav a {
-      flex: 1;
-      padding: 0.8em 1em;
-      border: 1px solid #c8a96e;
-      border-radius: 4px;
-      color: #c8a96e;
-      text-decoration: none;
-      font-size: 0.85em;
-      line-height: 1.5;
-    }
-    .article-nav a:hover { background: #fdf7ee; }
-    .article-nav .nav-prev { text-align: left; }
-    .article-nav .nav-next { text-align: right; }
-    .article-nav .nav-label {
-      display: block;
-      font-size: 0.75em;
-      color: #999;
-      margin-bottom: 0.2em;
-    }
+    /* ナビゲーション */
+    .article-nav{display:flex;justify-content:space-between;gap:1em;margin:2.5em 0 0;padding-top:1.5em;border-top:2px solid #c8a400;}
+    .article-nav a{flex:1;padding:1em 1.2em;border:1px solid #c8a400;border-radius:4px;text-decoration:none;display:block;}
+    .article-nav a:hover{background:#fdf7ee;}
+    .nav-prev{text-align:left;}.nav-next{text-align:right;}
+    .nav-label{display:block;font-size:.72em;color:#c8a400;letter-spacing:.05em;margin-bottom:.4em;}
+    .nav-castle{display:block;font-size:.95em;color:#1a1a1a;font-weight:600;line-height:1.4;}
+    .nav-company{display:block;font-size:.8em;color:#888;margin-top:.2em;}
+    .nav-empty{flex:1;}
+    /* 記事一覧へ戻る */
+    .back-to-list{text-align:center;margin:1.5em 0 2em;}
+    .back-to-list a{display:inline-block;padding:.7em 2.5em;border:1px solid #c8a400;border-radius:4px;color:#c8a96e;text-decoration:none;font-size:.9em;letter-spacing:.05em;}
+    .back-to-list a:hover{background:#fdf7ee;}
+    /* 決算概要注記 */
+    .data-note{font-size:.78em;color:#999;margin:.2em 0 .8em;text-align:right;}
+    .data-note a{color:#c8a96e;}
+    /* フッター */
+    footer{text-align:center;padding:1.5em 0;font-size:.82em;color:#999;border-top:1px solid #eee;margin-top:2em;}
   </style>
 </head>
 <body class="article-body">
@@ -92,14 +66,15 @@
     <span class="sep">|</span>
     <span class="company">Microsoft Corporation / MSFT</span>
   </div>
-  <h1 class="article-headline">諸葛亮孔明が語る営業利益率43%</h1>
-  <p class="article-deck">Microsoft 2024年6月期決算（FY2024）</p>
+  <h1 class="article-headline">三位一体の荊州城　営業利益率43%・孔明の布陣で天下を統べる</h1>
+  <p class="article-deck">Microsoft FY2024（2024年6月期） ｜ 城主：諸葛亮孔明</p>
 
   <div class="article-hero-img">
-    <img src="../images/003_hero.jpg" alt="荊州の城×Microsoft">
+    <img src="https://images.unsplash.com/photo-1519817914152-22d216bb9170?w=800&h=450&fit=crop&auto=format&q=80" alt="荊州の城×Microsoft（仮）" loading="lazy">
   </div>
 
-  <h2 class="section-heading">Microsoftの2024年6月期決算</h2>
+  <h2 class="section-heading">最新決算概要（2024年6月期 FY2024）</h2>
+  <p class="data-note">※最新の数値は <a href="https://www.microsoft.com/en-us/investor/earnings/" target="_blank" rel="noopener">Microsoft IR公式サイト</a> でご確認ください</p>
   <table class="data-table">
     <tr><th>項目</th><th>数値</th></tr>
     <tr><td>売上高</td><td>約2,450億ドル（前年比+16%）</td></tr>
@@ -115,34 +90,21 @@
   </div>
 
   <h2 class="section-heading">漫画でわかるMicrosoft</h2>
-  <div class="yonkoma-grid">
-    <div class="koma">
-      <div class="koma-img">
-        <img src="../images/003_koma1.png" alt="コマ1">
-      </div>
-      <div class="koma-serif">2024年6月——。売上約2,450億ドル。決算書を開いた孔明の眼が止まった。Azure・Office・Windows——三事業が独立しながら互いを補強し合っている。これは……わしが劉備殿に説いた、あの布陣と同じ形だ</div>
+  <div class="yonkoma-layout">
+    <div class="yonkoma-img-col">
+      <div class="koma-placeholder-full">4コマ漫画<br>（1枚・生成予定）</div>
     </div>
-    <div class="koma">
-      <div class="koma-img">
-        <img src="../images/003_koma2.png" alt="コマ2">
-      </div>
-      <div class="koma-serif">「Azure・Office・Teams…三方に陣を張ったわ！」三位一体の計——それは建安12年（207年）、孔明が隆中の庵で劉備に説いた策。荊州・益州・漢中の三地を押さえよ。その計が今、デジタルの世界に現れていた</div>
-    </div>
-    <div class="koma">
-      <div class="koma-img">
-        <img src="../images/003_koma3.png" alt="コマ3">
-      </div>
-      <div class="koma-serif">ナデラ殿が就任した2014年、Microsoftは時代遅れと笑われた。しかしWindowsを捨てず、Officeを活かし、Azureに全てを賭けた。そこへOpenAIという奇兵が現れた——孔明の眼が鋭く光った</div>
-    </div>
-    <div class="koma">
-      <div class="koma-img">
-        <img src="../images/003_koma4.png" alt="コマ4">
-      </div>
-      <div class="koma-serif">孔明は羽扇を静かに収め、遠くを見つめた。荊州の城の向こうに、まだ見ぬ天下が広がっていた。「…30年後の決算書に、答えが出る。」</div>
+    <div class="yonkoma-caption-col">
+      <ol class="koma-captions">
+        <li>2024年6月——。決算書を開いた孔明の眼が止まった。Azure・Office・Windows——三事業が独立しながら互いを補強し合っている。かつて隆中の庵で劉備に説いた布陣と、寸分違わぬ形だった。</li>
+        <li>「三位一体の計——荊州・益州・漢中の三地を押さえよ」あの策がデジタルの世界に蘇っていた。孔明は羽扇を静かに開いた。</li>
+        <li>ナデラが就任した2014年、Microsoftは時代遅れと笑われた。しかしWindowsを捨てず、Officeを活かし、Azureに全てを賭けた。そこへOpenAIという奇兵が現れた——。</li>
+        <li>孔明は羽扇を静かに収め、遠くを見つめた。「……30年後の決算書に、答えが出る。」荊州の城の向こうに、まだ見ぬ天下が広がっていた。</li>
+      </ol>
     </div>
   </div>
 
-  <h2 class="section-heading">ナデラCEO×諸葛亮孔明。2000年を超えた対談</h2>
+  <h2 class="section-heading">緻密・三位一体の軍師・孔明、クラウド帝国の設計者・Nadellaに問う</h2>
   <div class="dialog">
     <div class="dialog-line">
       <span class="speaker">孔明</span>
@@ -163,7 +125,7 @@
   </div>
 
   <figure class="article-img-block">
-    <img src="../images/003_dialog_mid.jpg" alt="孔明とNadella——荊州の城と三位一体の計が交差する瞬間">
+    <img src="https://images.unsplash.com/photo-1519817914152-22d216bb9170?w=800&h=300&fit=crop&crop=bottom&auto=format&q=80" alt="荊州の城——三位一体の計が交差する瞬間（仮）" loading="lazy">
     <figcaption>荊州・益州・漢中の三地が、今はAzure・Office・Windowsに変わった</figcaption>
   </figure>
 
@@ -215,35 +177,41 @@
     <tr><td>成長性</td><td>Azure+29%・Copilot AI全製品展開</td></tr>
   </table>
 
-  <p class="sub-heading">決算城の総評</p>
+  <p class="sub-heading">城代の総評</p>
   <p>Microsoftの強さは「時代を変える能力」にある。Gatewayから離れ、Androidを見送り、クラウドで復活——Nadellaが就任した2014年以降、時価総額は10倍超に達した。FCF740億ドルという弾薬とCopilotというAI軍勢で、企業向けIT市場での覇権は当面揺るがない。唯一の懸念はAI投資の回収タイミング。OpenAIへの巨額投資が実際の収益に結びつくまでの時間軸が長期化すると、投資家の忍耐が試される可能性がある。</p>
 
   <div class="cta-block">
-    <p>さあ、あなたはどう読む？</p>
+    <p>この城を自分で攻略する</p>
     <a href="https://www.microsoft.com/en-us/investor/earnings/" target="_blank" rel="noopener" class="btn btn-outline">▶ 決算書で数字を確認する</a>
-    <a href="AFFILIATE_LINK_HERE" class="btn btn-primary">▶ 証券口座の用意がまだならこちらから</a>
+    <a href="AFFILIATE_LINK_HERE" class="btn btn-primary">▶ 証券口座を開いて挑む</a>
   </div>
 
   <div class="disclaimer">
-    ⚠️ 免責事項：このメディアは投資を促すものじゃない。数値は公開情報をもとにした概算・解説です。あくまでもエンタメとして楽しんでください。投資判断はご自身の判断と責任のもとで行ってください。
+    ⚠️ 免責事項：本記事は投資を推奨するものではありません。数値は公開情報をもとにした概算・解説です。投資判断はご自身の判断と責任のもとで行ってください。
   </div>
 
   <nav class="article-nav">
     <a href="002_apple_japan.html" class="nav-prev">
       <span class="nav-label">◀ 前の記事</span>
-      FCF1,120億ドルの安土城<br>Apple × 織田信長
+      <span class="nav-castle">小田原城</span>
+      <span class="nav-company">Apple × 北条氏康</span>
     </a>
     <a href="004_amazon_japan.html" class="nav-next">
       <span class="nav-label">次の記事 ▶</span>
-      次回：Amazon × 荒武者<br>coming soon
+      <span class="nav-castle">大坂城</span>
+      <span class="nav-company">Amazon × 豊臣秀吉</span>
     </a>
   </nav>
+
+  <div class="back-to-list">
+    <a href="../index.html">← 記事一覧に戻る</a>
+  </div>
 
 </div>
 
 <script src="../js/main.js"></script>
 <footer>
-  <a href="../index.html">← 記事一覧に戻る</a> ｜ &copy; 2026 風雲！決算城
+  &copy; 2026 風雲！決算城
 </footer>
 
 </body>
