@@ -31,13 +31,19 @@
       .koma-placeholder-full{border-right:none;border-bottom:2px solid #c8a400;}
     }
     /* ナビゲーション */
-    .article-nav{display:flex;justify-content:space-between;gap:1em;margin:2.5em 0 0;padding-top:1.5em;border-top:2px solid #c8a400;}
-    .article-nav a{flex:1;padding:1em 1.2em;border:1px solid #c8a400;border-radius:4px;text-decoration:none;display:block;}
-    .article-nav a:hover{background:#fdf7ee;}
+    .article-nav{display:flex;justify-content:space-between;gap:1em;margin:2.5em 0 0;padding-top:1.5em;border-top:2px solid rgba(200,164,0,0.4);}
+    .article-nav a{flex:1;padding:1.4em 1.6em;border:1px solid rgba(201,168,76,0.3);border-radius:4px;text-decoration:none;display:block;position:relative;overflow:hidden;background-size:cover;background-position:center;min-height:90px;transition:border-color 0.4s;}
+    .article-nav a::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.62);transition:background 0.45s ease;}
+    .article-nav a:hover{border-color:rgba(201,168,76,0.7);}
+    .article-nav a:hover::before{background:rgba(245,240,228,0.93);}
     .nav-prev{text-align:left;}.nav-next{text-align:right;}
-    .nav-label{display:block;font-size:.72em;color:#c8a400;letter-spacing:.05em;margin-bottom:.4em;}
-    .nav-castle{display:block;font-size:.95em;color:#1a1a1a;font-weight:600;line-height:1.4;}
-    .nav-company{display:block;font-size:.8em;color:#888;margin-top:.2em;}
+    .nav-label,.nav-castle,.nav-company{position:relative;z-index:1;}
+    .nav-label{display:block;font-size:.72em;color:rgba(201,168,76,0.9);letter-spacing:.05em;margin-bottom:.4em;transition:color 0.4s;}
+    .nav-castle{display:block;font-size:.95em;color:#f0ebe0;font-weight:600;line-height:1.4;transition:color 0.4s;}
+    .nav-company{display:block;font-size:.8em;color:rgba(240,235,224,0.6);margin-top:.2em;transition:color 0.4s;}
+    .article-nav a:hover .nav-label{color:#c8a400;}
+    .article-nav a:hover .nav-castle{color:#1a1a1a;}
+    .article-nav a:hover .nav-company{color:#888;}
     .nav-empty{flex:1;}
     /* 記事一覧へ戻る */
     .back-to-list{text-align:center;margin:1.5em 0 2em;}
@@ -176,12 +182,12 @@
   </div>
 
   <nav class="article-nav">
-    <a href="003_microsoft_japan.html" class="nav-prev">
+    <a href="003_microsoft_japan.html" class="nav-prev" style="background-image:url('../images/003_hero.png');">
       <span class="nav-label">◀ 前の記事</span>
       <span class="nav-castle">荊州城</span>
       <span class="nav-company">Microsoft × 諸葛亮孔明</span>
     </a>
-    <a href="005_meta_japan.html" class="nav-next">
+    <a href="005_meta_japan.html" class="nav-next" style="background-image:url('../images/005_hero.png');">
       <span class="nav-label">次の記事 ▶</span>
       <span class="nav-castle">坂本城</span>
       <span class="nav-company">Meta × 明智光秀</span>

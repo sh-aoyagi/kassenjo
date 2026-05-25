@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sh-aoyagi.github.io/kassenjo/sitemap.xml
