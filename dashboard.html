@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電脳会社ダッシュボード</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; background: #0f0f0f; color: #e0e0e0; padding-bottom: 40px; }
+
+.header { background: #1a1a1a; padding: 13px 16px; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 15px; font-weight: 700; color: #fff; }
+
+/* ACCORDION */
+.acc { border-bottom: 1px solid #222; }
+.acc-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 16px; cursor: pointer; user-select: none; background: #0f0f0f; }
+.acc-header:active { background: #1a1a1a; }
+.acc-title { font-size: 15px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
+.acc-badge { font-size: 11px; background: #4ade80; color: #000; padding: 2px 8px; border-radius: 20px; font-weight: 700; }
+.acc-badge.warn { background: #fbbf24; }
+.acc-badge.muted { background: #333; color: #888; }
+.acc-arrow { font-size: 18px; color: #888; transition: transform 0.2s; }
+.acc-arrow.open { transform: rotate(180deg); }
+.acc-body { display: none; padding: 0 16px 16px; }
+.acc-body.open { display: block; }
+
+/* COPY BLOCK */
+.copy-block { background: #1a1a1a; border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.copy-header { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: #222; gap: 8px; }
+.copy-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.4px; flex: 1; }
+.copy-btn { background: #4ade80; color: #000; font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; border: none; white-space: nowrap; flex-shrink: 0; }
+.copy-btn.done { background: #86efac; }
+.copy-text { padding: 10px 12px; font-size: 13px; line-height: 1.7; color: #ddd; white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow-y: auto; }
+.copy-text.tall { max-height: 280px; }
+
+/* ARTICLE CARD */
+.art-card { border-radius: 10px; margin-bottom: 12px; overflow: hidden; border-left: 3px solid #4ade80; background: #1a1a1a; }
+.art-card.posted { border-left-color: #333; opacity: 0.6; }
+.art-card-head { padding: 11px 12px; background: #222; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.art-title { font-size: 13px; font-weight: 700; color: #fff; flex: 1; line-height: 1.4; }
+.art-status { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; background: #1f3b2a; color: #4ade80; white-space: nowrap; }
+.art-status.posted { background: #333; color: #888; }
+.posted-btn { display: block; width: 100%; padding: 9px; text-align: center; font-size: 12px; font-weight: 700; color: #888; background: transparent; cursor: pointer; border: none; border-top: 1px solid #333; }
+
+/* MERCARI */
+.m-card { background: #1a1a1a; border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.m-head { padding: 10px 12px; background: #222; }
+.m-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.m-price { font-size: 12px; margin-bottom: 2px; }
+.price-alert { color: #f87171; font-weight: 700; }
+.price-new { color: #4ade80; font-weight: 700; }
+.price-ok { color: #4ade80; font-weight: 700; }
+.m-meta { font-size: 11px; color: #666; }
+
+/* ANALYSIS */
+.score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.score-card { background: #1a1a1a; border-radius: 8px; padding: 10px 12px; }
+.score-label { font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 4px; }
+.score-val { font-size: 22px; font-weight: 700; }
+.score-val.red { color: #f87171; }
+.score-val.green { color: #4ade80; }
+.score-val.yellow { color: #fbbf24; }
+
+/* COMPETITOR TABLE */
+.comp-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 14px; }
+.comp-table th { text-align: left; padding: 6px 8px; color: #888; border-bottom: 1px solid #333; font-weight: 600; }
+.comp-table td { padding: 7px 8px; border-bottom: 1px solid #222; color: #ddd; vertical-align: top; line-height: 1.4; }
+.comp-table tr:last-child td { border-bottom: none; }
+.likes-num { font-weight: 700; color: #4ade80; }
+
+/* REPORT */
+.report-item { background: #1a1a1a; border-radius: 10px; padding: 12px; margin-bottom: 10px; border-left: 3px solid #fbbf24; }
+.report-item.good { border-left-color: #4ade80; }
+.report-item.bad { border-left-color: #f87171; }
+.report-title { font-size: 12px; font-weight: 700; margin-bottom: 5px; }
+.report-title.good { color: #4ade80; }
+.report-title.bad { color: #f87171; }
+.report-title.fix { color: #fbbf24; }
+.report-body { font-size: 12px; color: #ccc; line-height: 1.6; }
+.report-body code { background: #333; padding: 1px 5px; border-radius: 4px; font-family: monospace; font-size: 11px; color: #86efac; }
+
+/* KPI ROW */
+.kpi-row { display: flex; gap: 8px; margin-bottom: 12px; }
+.kpi { flex: 1; background: #1a1a1a; border-radius: 8px; padding: 10px 8px; text-align: center; }
+.kpi .v { font-size: 22px; font-weight: 700; color: #fff; }
+.kpi .l { font-size: 10px; color: #888; margin-top: 2px; }
+
+/* ARTICLE LIST */
+.a-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #1a1a1a; border-radius: 8px; margin-bottom: 6px; }
+.a-num { font-size: 18px; font-weight: 700; color: #fff; min-width: 32px; text-align: right; }
+.a-text { flex: 1; font-size: 12px; color: #ccc; line-height: 1.4; }
+.a-bar { height: 2px; background: #2a2a2a; border-radius: 2px; margin-top: 3px; }
+.a-fill { height: 2px; border-radius: 2px; background: #4ade80; }
+.a-likes { font-size: 11px; color: #888; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚡ 電脳会社</h1>
+  <a href="quiz.html" style="font-size:12px;font-weight:700;color:#4ade80;text-decoration:none;background:#1f3b2a;padding:5px 12px;border-radius:20px;">🎯 今日のクイズ</a>
+</div>
+
+<!-- ==================== NOTE投稿 ==================== -->
+<div class="acc">
+  <div class="acc-header" onclick="toggle('post')">
+    <div class="acc-title">📝 note投稿 <span class="acc-badge">2本待ち</span></div>
+    <div class="acc-arrow" id="arrow-post">▼</div>
+  </div>
+  <div class="acc-body open" id="body-post">
+
+    <!-- 記事1 -->
+    <div class="art-card" id="c0">
+      <div class="art-card-head">
+        <div class="art-title">ダービー当日追記｜仕上がり速報＋津村復帰</div>
+        <span class="art-status" id="s0">投稿待ち</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-header"><span class="copy-label">① タイトル</span><button class="copy-btn" onclick="cp(this,'t0')">コピー</button></div>
+        <div class="copy-text" id="t0">日本ダービー2026 当日速報｜ロブチェン・コンジェスタス・津村復帰、4頭の仕上がりを全部見た</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-header"><span class="copy-label">② 本文</span><button class="copy-btn" onclick="cp(this,'b0')">コピー</button></div>
+        <div class="copy-text tall" id="b0">🔴 当日更新：直前追い切り速報 + 騎手情報（5/28〜29実施分）
+
+発走当日。最終追い切りタイムと関係者コメントが出そろった。以下は事実として記録する。
+
+| 馬名 | 場所 | タイム | コメント |
+|------|------|--------|---------|
+| ロブチェン | 美浦W | 4F51.4→終い11.2 | 房野助手「折り合いがついてメチャクチャ良かった。フォームがさらに良くなった」杉山師「皐月賞より踏み込んだ感じで仕上げた」 |
+| リアライズシリウス | 美浦W | 馬なり・余力残し | 後肢を深く踏み込みパワフルな動き。調教診断で全出走馬の最上位評価。馬体重532kg |
+| コンジェスタス | 栗東坂路 | 4F54.1→終い12.6 | 高野師「とてもいい状態でダービーに臨めると思います。無理なく整えられた」 |
+| ゴーイントゥスカイ | 美浦W | 終い重点・併走 | 武豊「のんびり走っていたけど、ゴーサインを出すと反応してくれた」上原師「リラックスして走れていた」 |
+
+---
+
+🔴 騎手情報（事実）
+
+リアライズシリウスの津村明秀騎手は、5月30日（土）の東京7Rで落馬・担架搬送されたが、当日2Rから復帰を果たした。本人は「痛み止めは飲んでいますが、ご覧の通り大丈夫です」とダービーへの騎乗を自ら確認している。
+
+---
+
+筆者の見解
+
+ロブチェンの最終追いはタイムより「コメントの質」に注目した。「フォームがさらに良くなった」という房野助手の言葉は、皐月賞から上積みがあることを示す。コースレコードで制した馬が、さらに良化している。これは単純に走ってはいけない数字だ。
+
+リアライズシリウスの「馬なりで最上位評価」も見逃せない。目一杯追って好時計を出した馬より、余力を残して最高評価を受けた馬の方が当日の上積みを残している。津村騎手は昨日担架で運ばれながら今日ここにいる。この事実だけで、この馬のレースに対して何かが起きる気がしてならない。
+
+コンジェスタスは中2週のローテが最大の読みどころだ。高野師が「無理なく整えた」と言うとき、それは調整を抑えたことを意味する。抑えた分の余力が残っているのか、抑えるしかなかったのか。3戦3勝・無敗の馬が答えを出す。
+
+ゴーイントゥスカイは「ゴーサインで反応する」という武豊のコメントが全てだ。この騎手がこの言葉を選んだとき、その馬に末脚の質があることを意味する。2400mで、その末脚がどこから使われるかが焦点になる。
+
+買い目は有料パートにて。</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-header"><span class="copy-label">③ タグ</span><button class="copy-btn" onclick="cp(this,'tg0')">コピー</button></div>
+        <div class="copy-text" id="tg0">日本ダービー　競馬予想　FIREスコア　ロブチェン　競馬</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-header"><span class="copy-label">④ TOP画像プロンプト（Gemini用）</span><button class="copy-btn" onclick="cp(this,'img0')">コピー</button></div>
+        <div class="copy-text" id="img0">横長バナー 1280×670px、黒背景、金の粒子が舞う東京競馬場のゴール板。手前に力強く駆ける競走馬のシルエット。テキスト「日本ダービー2026 当日速報」を上部に白字×金縁で大きく。下部に小文字で「4頭の仕上がりを全部見た」。迫力重視。墨絵タッチ×デジタルグラデーション。</div>
+      </div>
+      <button class="posted-btn" onclick="markPosted('c0','s0','post')">✓ 投稿済みにする</button>
+    </div>
+
+    <!-- 記事2 -->
+    <div class="art-card" id="c1">
+      <div class="art-card-head">
+        <div class="art-title">FIREスコア検証｜8R〜11R全結果</div>
+        <span class="art-status" id="s1">投稿待ち</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-header"><span class="copy-label">① タイトル</span><button class="copy-btn" onclick="cp(this,'t1')">コピー</button></div>
+        <div class="copy-text" id="t1">日本ダービー2026 FIREスコア検証｜◎ロブチェン的中、8R〜10Rの○△が全部馬券内に入った話</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-header"><span class="copy-label">② 本文</span><button class="copy-btn" onclick="cp(this,'b1')">コピー</button></div>
+        <div class="copy-text tall" id="b1">5月31日、東京競馬5レースのFIREスコア検証結果。
+
+| R | ◎ | 結果 | 判定 |
+|---|---|------|------|
+| 7R | マックスキュー(ルメール) | 1着：シュレン | ❌ 外れ |
+| 8R | ジオセントリック(D.レーン) | △サトノパトリオット1着・◎3着 | ✅ 馬券内 |
+| 9R | クァンタムウェーブ(西村) | ○メイショウハチロー1着・△3着 | ✅ 馬券内 |
+| 10R | ジャサルディア(ルメール) | ○レイニング1着・◎2着 | ✅ 完璧 |
+| 11R | ロブチェン(松山) | ◎ロブチェン1着 | ✅ 的中 |
+
+7Rは完全外れ。8R〜11Rは4レース全て候補馬が馬券に絡んだ。
+
+特に10R（むらさき賞）は◎と○で1着2着を取り切った。馬連を買っていれば完璧だった。
+
+ダービーは◎ロブチェンが単勝420円で1着。FIREスコアの評価通り「コース仕様×実績データ」で最上位だった馬が勝った。
+
+買い目は有料パートにて。</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-header"><span class="copy-label">③ タグ</span><button class="copy-btn" onclick="cp(this,'tg1')">コピー</button></div>
+        <div class="copy-text" id="tg1">競馬予想　FIREスコア　日本ダービー　競馬　ロブチェン</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-header"><span class="copy-label">④ TOP画像プロンプト（Gemini用）</span><button class="copy-btn" onclick="cp(this,'img1')">コピー</button></div>
+        <div class="copy-text" id="img1">横長バナー 1280×670px、ダークネイビー背景。中央に炎のロゴ「FIRE SCORE」。左に棒グラフ（4レースの的中率イメージ）。右に競走馬シルエット（金色）。テキスト「2026年5月31日 検証結果」白字。スタイリッシュなデータ系デザイン。</div>
+      </div>
+      <button class="posted-btn" onclick="markPosted('c1','s1','post')">✓ 投稿済みにする</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== メルカリ ==================== -->
+<div class="acc">
+  <div class="acc-header" onclick="toggle('merc')">
+    <div class="acc-title">🛍️ メルカリ <span class="acc-badge warn">値下げ3件</span></div>
+    <div class="acc-arrow" id="arrow-merc">▼</div>
+  </div>
+  <div class="acc-body" id="body-merc">
+
+    <div class="m-card">
+      <div class="m-head"><div class="m-name">Porter ブリーフケース</div><div class="m-price"><span class="price-alert">¥6,999</span> → <span class="price-new">¥6,500</span></div><div class="m-meta">いいね2件 / 閲覧42 / 利益¥2,750</div></div>
+      <div class="copy-block"><div class="copy-header"><span class="copy-label">コメント文</span><button class="copy-btn" onclick="cp(this,'mc0')">コピー</button></div><div class="copy-text" id="mc0">ありがとうございます！
+本日朝まで特別価格にてご提供します。
+この価格が底値となりますので、
+ご検討中の方はぜひこの機会に。</div></div>
+      <div class="copy-block"><div class="copy-header"><span class="copy-label">新しい価格</span><button class="copy-btn" onclick="cp(this,'mp0')">コピー</button></div><div class="copy-text" id="mp0">6500</div></div>
+    </div>
+
+    <div class="m-card">
+      <div class="m-head"><div class="m-name">Nike Field General Snake</div><div class="m-price"><span class="price-alert">¥18,999</span> → <span class="price-new">¥12,999</span></div><div class="m-meta">スニダン最安¥11,500確認済み / 利益¥2,899</div></div>
+      <div class="copy-block"><div class="copy-header"><span class="copy-label">新しい価格</span><button class="copy-btn" onclick="cp(this,'mp1')">コピー</button></div><div class="copy-text" id="mp1">12999</div></div>
+    </div>
+
+    <div class="m-card">
+      <div class="m-head"><div class="m-name">Supreme Handwriting Short</div><div class="m-price"><span class="price-alert">¥39,999</span> → <span class="price-new">¥34,999</span></div><div class="m-meta">StockX Last Sale ¥33,500確認済み / 利益¥1,499</div></div>
+      <div class="copy-block"><div class="copy-header"><span class="copy-label">新しい価格</span><button class="copy-btn" onclick="cp(this,'mp2')">コピー</button></div><div class="copy-text" id="mp2">34999</div></div>
+    </div>
+
+    <div class="m-card">
+      <div class="m-head"><div class="m-name">adidas × AVAVAV / VANS × Supreme / Supreme × Dickies</div><div class="m-price"><span style="color:#888">いいね各1件</span></div></div>
+      <div class="copy-block"><div class="copy-header"><span class="copy-label">共通コメント文</span><button class="copy-btn" onclick="cp(this,'mc1')">コピー</button></div><div class="copy-text" id="mc1">ありがとうございます！
+本日朝まで特別価格にてご提供します。
+この価格が底値となりますので、
+ご検討中の方はぜひこの機会に。</div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== 競合分析レポート ==================== -->
+<div class="acc">
+  <div class="acc-header" onclick="toggle('report')">
+    <div class="acc-title">🔬 競合分析 ＆ 改善レポート <span class="acc-badge warn">要確認</span></div>
+    <div class="acc-arrow" id="arrow-report">▼</div>
+  </div>
+  <div class="acc-body" id="body-report">
+
+    <div style="font-size:11px;color:#888;margin-bottom:12px;">note「#競馬予想」タグ 人気記事TOP10をWebSearchで取得・分析（2026年5月31日）</div>
+
+    <table class="comp-table">
+      <tr><th>#</th><th>タイトル（競合）</th><th>スキ</th><th>価格</th></tr>
+      <tr><td>1</td><td>前走不利を狙うイルカのブリバリ勝負軸馬</td><td class="likes-num">1,644</td><td>¥299</td></tr>
+      <tr><td>2</td><td>5/31(日)中央競馬狙い馬勉強ノート</td><td class="likes-num">316</td><td>¥590</td></tr>
+      <tr><td>3</td><td>5/31(日) 日本ダービー(無料)と勝負レース</td><td class="likes-num">213</td><td>無料</td></tr>
+      <tr><td>4</td><td>5/31 日本ダービー〜やっぱり★5推奨</td><td class="likes-num">213</td><td>¥500</td></tr>
+      <tr><td>5</td><td>2026.5.31 中央競馬予想</td><td class="likes-num">122</td><td>¥300</td></tr>
+      <tr><td>参考</td><td>青柳さんの最高記事：今村聖奈と寺島良のオークス</td><td class="likes-num" style="color:#fbbf24">1</td><td>無料</td></tr>
+    </table>
+
+    <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:8px;">✂️ 競合タイトルの共通パターン</div>
+
+    <div class="report-item good">
+      <div class="report-title good">✅ 競合が必ずやっていること（青柳さんは未実施）</div>
+      <div class="report-body">
+        <b>① 日付をタイトルに入れる</b><br>
+        競合: <code>5/31(日)中央競馬狙い馬</code><br>
+        → 「5/31 競馬予想」で検索したユーザーに刺さる。毎日ヒットし続ける。<br><br>
+        <b>② キャラクター名・独自理論名でブランド化</b><br>
+        競合: <code>イルカのブリバリ勝負軸馬</code>（1,644スキ）<br>
+        → 「イルカ」というキャラが固定読者を生む。FIREスコアを同様に使えるはず。<br><br>
+        <b>③「(無料)」「¥100」をタイトルに明示</b><br>
+        競合: <code>5/31 日本ダービー(無料)と勝負レース</code><br>
+        → 無料と有料を一記事に共存させてCVを取る構造。
+      </div>
+    </div>
+
+    <div class="report-item bad">
+      <div class="report-title bad">❌ 青柳さんの記事の弱点（競合との差分）</div>
+      <div class="report-body">
+        <b>① タイトルに日付がない</b><br>
+        現在: <code>今村聖奈と寺島良のオークス｜新たな神話...</code><br>
+        改善: <code>5/31(日) 今村聖奈と寺島良のオークス｜新たな神話...</code><br><br>
+        <b>② 購入動機が見えない</b><br>
+        現在: タイトルから「何が有料か」「何が得られるか」が分からない<br>
+        改善: タイトルに <code>（無料）買い目は有料¥100</code> を入れる<br><br>
+        <b>③ シリーズ感がない</b><br>
+        現在: 毎回バラバラのタイトル<br>
+        改善: <code>FIREスコア週次通信 #001</code> のように番号を付ける<br><br>
+        <b>④ 絵文字が少ない</b><br>
+        競合はタイトル・見出しに絵文字を多用して視認性を上げている。<br>
+        スマホのnoteフィードでは絵文字があるだけでクリック率が上がる。
+      </div>
+    </div>
+
+    <div class="report-item">
+      <div class="report-title fix">🔧 今週から変えること（優先順）</div>
+      <div class="report-body">
+        <b>1位（タイトル修正）</b><br>
+        全記事タイトルの先頭に日付を追加する。<br>
+        例: <code>6/1(月) 安田記念展望｜FIREスコアで読む東京マイル</code><br><br>
+        <b>2位（無料+有料の一体化）</b><br>
+        無料記事の末尾に「買い目は<a href="#" style="color:#4ade80">こちらの有料記事（¥100）</a>」を毎回入れる。<br><br>
+        <b>3位（FIREスコアのキャラ化）</b><br>
+        「FIREスコア」を「イルカ」のようなキャラクターとして育てる。<br>
+        例: <code>🔥FIREスコアが選ぶ今週の本命馬</code> を固定フレーズにする。<br><br>
+        <b>書き出しパターン（競合から盗む）</b><br>
+        競合最強書き出し: 「日本競馬史に新たな1ページが刻まれた◯◯。そして今週末は─」<br>
+        → 前週の結果を1行で振り返ってから今週に入る構造がリピーターを作る。
+      </div>
+    </div>
+
+    <div style="font-size:12px;color:#666;margin-top:8px;">出典：note「#競馬予想」タグ / 騎手コメント記事分析（2026年5月31日取得）</div>
+  </div>
+</div>
+
+<!-- ==================== note分析 ==================== -->
+<div class="acc">
+  <div class="acc-header" onclick="toggle('analytics')">
+    <div class="acc-title">📊 note分析 <span class="acc-badge muted">26記事</span></div>
+    <div class="acc-arrow" id="arrow-analytics">▼</div>
+  </div>
+  <div class="acc-body" id="body-analytics">
+    <div class="kpi-row">
+      <div class="kpi"><div class="v" id="tv">-</div><div class="l">総ビュー</div></div>
+      <div class="kpi"><div class="v" id="mv">-</div><div class="l">最高</div></div>
+      <div class="kpi"><div class="v" id="av">-</div><div class="l">平均</div></div>
+      <div class="kpi"><div class="v" id="tl">-</div><div class="l">総スキ</div></div>
+    </div>
+    <div id="alist"></div>
+  </div>
+</div>
+
+<script>
+const arts=[
+  {t:"今村聖奈と寺島良のオークス｜新たな神話",v:67,l:1},
+  {t:"'26 日本ダービー予想｜血か、ジンクスか",v:66,l:2},
+  {t:"【読了５分】ポケベルが、鳴った",v:58,l:0},
+  {t:"オークス2026予想｜FIREスコアが示す波乱",v:52,l:0},
+  {t:"ゴールが2つあった日",v:48,l:2},
+  {t:"【読了５分】昭和五十六年。春。",v:48,l:0},
+  {t:"【読了５分】既読がついた。",v:47,l:0},
+  {t:"はじめての日本ダービー",v:44,l:1},
+  {t:"日本ダービー2026｜ロブチェンとリアライズシリウス",v:36,l:2},
+  {t:"オークス2026｜ラフターラインズとジュウリョクピエロ",v:33,l:0},
+  {t:"【読了５分】傘を、貸すよ",v:30,l:1},
+  {t:"はじめてのNHKマイルカップ",v:29,l:0},
+  {t:"日本ダービー2026｜コンジェスタスとゴーイントゥスカイ",v:29,l:2},
+  {t:"はじめてのオークス",v:28,l:0},
+  {t:"【読了５分】アカウントを、変えた夜に",v:28,l:0},
+  {t:"FIREスコアとは何か？",v:25,l:0},
+  {t:"コンビニ・冷凍弁当ダイエット週次ランキング",v:24,l:0},
+  {t:"G1データ馬券術｜回収率120%超",v:21,l:0},
+  {t:"オークス2026｜スターアニスとアランカール",v:18,l:0},
+  {t:"コロがし成功率を上げる3軸選定ロジック",v:17,l:0},
+  {t:"ラインを読めれば勝率が変わる",v:16,l:0},
+  {t:"萩原清という調教師が残したもの",v:16,l:0},
+  {t:"日本ダービー2026｜大外から歴史を変えた馬たちへ",v:8,l:1},
+  {t:"自動キュン売機 Season8",v:6,l:0},
+  {t:"自動キュン売機 Season6",v:5,l:0},
+  {t:"自動キュン売機 Season7",v:5,l:0},
+];
+
+let pendingCount = 2;
+
+function init(){
+  document.getElementById('ts').textContent = new Date().toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  const tv=arts.reduce((s,a)=>s+a.v,0);
+  const tl=arts.reduce((s,a)=>s+a.l,0);
+  const mx=Math.max(...arts.map(a=>a.v));
+  document.getElementById('tv').textContent=tv;
+  document.getElementById('mv').textContent=mx;
+  document.getElementById('av').textContent=Math.round(tv/arts.length);
+  document.getElementById('tl').textContent=tl;
+  const s=[...arts].sort((a,b)=>b.v-a.v);
+  document.getElementById('alist').innerHTML=s.map((a,i)=>`
+    <div class="a-item">
+      <div class="a-num">${a.v}</div>
+      <div class="a-text">#${i+1} ${a.t}<div class="a-bar"><div class="a-fill" style="width:${Math.round(a.v/mx*100)}%"></div></div></div>
+      <div class="a-likes">♥${a.l}</div>
+    </div>`).join('');
+}
+
+function toggle(id){
+  const body = document.getElementById('body-'+id);
+  const arrow = document.getElementById('arrow-'+id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+}
+
+function cp(btn, id){
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='✅ コピー済み';
+    btn.classList.add('done');
+    setTimeout(()=>{ btn.textContent='コピー'; btn.classList.remove('done'); }, 2000);
+  }).catch(()=>{
+    const el=document.getElementById(id);
+    const r=document.createRange();
+    r.selectNodeContents(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(r);
+    btn.textContent='✅ 選択';
+    setTimeout(()=>{ btn.textContent='コピー'; window.getSelection().removeAllRanges(); },2000);
+  });
+}
+
+function markPosted(cardId, statusId, sectionId){
+  document.getElementById(cardId).classList.add('posted');
+  const s = document.getElementById(statusId);
+  s.textContent='投稿済み';
+  s.className='art-status posted';
+  const btn = document.getElementById(cardId).querySelector('.posted-btn');
+  btn.textContent='✓ 投稿済み';
+  pendingCount = Math.max(0, pendingCount - 1);
+  const badge = document.querySelector(`[onclick="toggle('${sectionId}')"] .acc-badge`);
+  if(badge) badge.textContent = pendingCount > 0 ? `${pendingCount}本待ち` : '完了';
+}
+
+init();
+// 最初はnote投稿セクションを開いておく
+document.getElementById('arrow-post').classList.add('open');
+</script>
+</body>
+</html>
