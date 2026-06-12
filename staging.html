@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STAGING｜風雲！決算城</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .staging-banner {
+      background: #c0392b;
+      color: #fff;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      padding: 6px;
+    }
+    .staging-desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+      border: 1px solid #c0392b;
+      padding: 0.8rem 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .article-list { list-style: none; margin: 0.5rem 0 2rem; }
+    .article-list li {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .article-list li:first-child { border-top: 1px solid var(--border); }
+    .article-list a {
+      flex: 1;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.95rem;
+      color: var(--white);
+      transition: color 0.2s;
+    }
+    .article-list a:hover { color: var(--gold); }
+    .badge-live {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+    .badge-staging {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #c0392b;
+      border: 1px solid #c0392b;
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+    .badge-wip {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+    .score-chip {
+      font-size: 0.72rem;
+      color: var(--gold);
+      font-weight: 700;
+      white-space: nowrap;
+      min-width: 60px;
+      text-align: right;
+    }
+    .section-note {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-bottom: 0.8rem;
+    }
+    h1.article-headline { opacity: 1 !important; font-size: 1.6rem; margin-bottom: 0.6rem; }
+    h2.section-heading { opacity: 1 !important; }
+    .promote-note {
+      background: var(--black3);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .promote-note strong { color: var(--gold); }
+    .promote-steps { padding-left: 1.2rem; margin-top: 0.5rem; }
+    .promote-steps li { margin-bottom: 0.3rem; }
+    .checklist-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--gray);
+      padding: 0.3rem 0;
+    }
+    .checklist-row input[type="checkbox"] { accent-color: var(--gold); width: 14px; height: 14px; }
+    .img-status {
+      font-size: 0.65rem;
+      color: #555;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body class="article-body">
+
+<div class="staging-banner">— STAGING — 本番公開前の確認環境です —</div>
+
+<header>
+  <div class="site-logo">
+    <div class="site-title"><a href="index.html">風雲！決算城</a></div>
+    <div class="site-tagline" style="color:#c0392b;font-weight:700;">STAGING</div>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <h1 class="article-headline">記事ステージング一覧</h1>
+  <div class="staging-desc">
+    ここは本番（index.html）へのアップ前に内容を確認するための管理ページです。<br>
+    ステージングで問題なければ、下の「本番化チェックリスト」を済ませてから index.html へ反映してください。
+  </div>
+
+  <h2 class="section-heading">本番掲載中（LIVE）</h2>
+  <p class="section-note">index.html のスライド・記事一覧パネルに表示されています</p>
+  <ul class="article-list">
+    <li>
+      <a href="articles/001_google_alphabet.html">001 Alphabet（Google）× 織田信長 — 安土城</a>
+      <span class="score-chip">FIRE 88</span>
+      <span class="badge-live">LIVE</span>
+      <span class="img-status">ヒーロー画像待ち</span>
+    </li>
+    <li>
+      <a href="articles/002_apple_japan.html">002 Apple × 織田信長 — 安土城</a>
+      <span class="score-chip">FIRE 88</span>
+      <span class="badge-live">LIVE</span>
+      <span class="img-status">ヒーロー画像待ち</span>
+    </li>
+    <li>
+      <a href="articles/003_microsoft_japan.html">003 Microsoft × 諸葛亮孔明 — 荊州の城</a>
+      <span class="score-chip">FIRE 93</span>
+      <span class="badge-live">LIVE</span>
+      <span class="img-status">ヒーロー画像待ち</span>
+    </li>
+  </ul>
+
+  <h2 class="section-heading">ステージング中（確認待ち）</h2>
+  <p class="section-note">index.html に追加済み。4コマ画像を生成後に完成させる</p>
+  <ul class="article-list">
+    <li>
+      <a href="articles/004_amazon_japan.html">004 Amazon × 織田信長 — 安土城</a>
+      <span class="score-chip">FIRE 82</span>
+      <span class="badge-staging">STG</span>
+      <span class="img-status">4コマ画像待ち</span>
+    </li>
+    <li>
+      <a href="articles/005_meta_japan.html">005 Meta × 織田信長 — 安土城</a>
+      <span class="score-chip">FIRE 85</span>
+      <span class="badge-staging">STG</span>
+      <span class="img-status">4コマ画像待ち</span>
+    </li>
+  </ul>
+
+  <h2 class="section-heading">制作予定（WIP）</h2>
+  <p class="section-note">記事メモ（txt）は作成済み。HTML 未着手</p>
+  <ul class="article-list">
+    <li>
+      <a href="articles/006_mckinsey_japan.html" style="color:var(--gray);pointer-events:none;">006 McKinsey — TBD</a>
+      <span class="score-chip" style="color:var(--gray);">—</span>
+      <span class="badge-wip">WIP</span>
+    </li>
+    <li>
+      <a href="#" style="color:var(--gray);pointer-events:none;">007〜100 記事メモ作成中…</a>
+      <span class="badge-wip">WIP</span>
+    </li>
+  </ul>
+
+  <h2 class="section-heading">4コマ画像　本番化チェックリスト</h2>
+  <div class="promote-note">
+    <strong>画像生成後にやること（004・005 共通）</strong>
+    <ol class="promote-steps">
+      <li>生成画像を <code>images/004_koma.png</code>、<code>images/005_koma.png</code> として保存</li>
+      <li>各記事 HTML の yonkoma-placeholder を img タグに差し替え</li>
+      <li>staging.html でプレビューして問題なければ完了</li>
+      <li>GitHub Pages にプッシュ</li>
+    </ol>
+  </div>
+
+  <div style="margin-bottom:1rem;">
+    <div class="checklist-row"><input type="checkbox"> 004 Amazon — 4コマ画像生成済み（images/004_koma.png）</div>
+    <div class="checklist-row"><input type="checkbox"> 004 Amazon — yonkoma-placeholder を img に差し替え</div>
+    <div class="checklist-row"><input type="checkbox"> 004 Amazon — staging.html でプレビュー確認</div>
+    <div class="checklist-row"><input type="checkbox"> 005 Meta — 4コマ画像生成済み（images/005_koma.png）</div>
+    <div class="checklist-row"><input type="checkbox"> 005 Meta — yonkoma-placeholder を img に差し替え</div>
+    <div class="checklist-row"><input type="checkbox"> 005 Meta — staging.html でプレビュー確認</div>
+    <div class="checklist-row"><input type="checkbox"> GitHub Push 完了</div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html">← 本番 TOP へ</a> ｜ STAGING ONLY — 外部公開しないこと ｜ &copy; 2026 風雲！決算城
+</footer>
+
+</body>
+</html>
