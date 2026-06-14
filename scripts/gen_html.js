@@ -184,12 +184,10 @@ function renderGrowth(paragraphs) {
 }
 
 function render(data, prev, next) {
-  const title = `${data.company}×${data.lord}「${data.castle}」FIREスコア${data.fireTotal}点・${data.fireRank}｜風雲！決算城`;
-  const desc = `${data.company}の決算を${data.lord}が斬る。FIREスコア${data.fireTotal}点・${data.fireRank}。${data.castle}認定の根拠を城主と社長の対話形式で解説。`;
+  const title = `${data.company}×${data.lord}「${data.castle}」｜風雲！決算城`;
+  const desc = `${data.company}の決算を${data.lord}が斬る。${data.castle}認定の根拠を城主と社長の対話形式で解説。`;
 
   const overviewRows = data.overview.map(o => `    <tr><td>${esc(o.k)}</td><td>${esc(o.v)}</td></tr>`).join('\n');
-
-  const breakdownRows = data.breakdown.map(b => `    <tr><td>${esc(b.k)}</td><td>${esc(b.score)}点${b.note ? '（' + esc(b.note) + '）' : ''}</td></tr>`).join('\n');
 
   const komaList = data.koma.map((k, i) => `        <li>${esc(k)}</li>`).join('\n');
 
@@ -269,22 +267,16 @@ function render(data, prev, next) {
     <span class="company">${esc(data.company)}</span>
   </div>
   <h1 class="article-headline">${esc(data.castle)}　${esc(data.lord)}、${esc(data.company)}の決算を斬る</h1>
-  <p class="article-deck">FIREスコア${esc(data.fireTotal)}点｜ランク：${esc(data.fireRank)}｜城主：${esc(data.lord)}</p>
+  <p class="article-deck">城主：${esc(data.lord)}</p>
 
   <div class="castle-banner">
     <div class="cb-castle">${esc(data.castle)}</div>
-    <div class="cb-sub">城主：${esc(data.lord)}　|　FIREスコア ${esc(data.fireTotal)}点（${esc(data.fireRank)}）</div>
+    <div class="cb-sub">城主：${esc(data.lord)}</div>
   </div>
 
   <h2 class="section-heading">最新決算概要</h2>
   <table class="data-table">
 ${overviewRows}
-  </table>
-
-  <h2 class="section-heading">FIREスコア（Final Insight Racing Evaluation）</h2>
-  <table class="data-table">
-    <tr><th>総合スコア</th><td>${esc(data.fireTotal)}点　ランク：${esc(data.fireRank)}</td></tr>
-${breakdownRows}
   </table>
 
   <h2 class="section-heading">あらすじ4コマ</h2>
